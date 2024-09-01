@@ -1,0 +1,17 @@
+schema: "src/graphql/schema.graphql"
+documents:
+  - 'src/**/*.{ts,tsx}'
+generates:
+  ./src/__generated__/:
+    preset: client
+    plugins: []
+    presetConfig:
+      gqlTagName: gql
+  ./src/__generated__/resolvers-types.ts:
+    plugins:
+      - "typescript"
+      - "typescript-resolvers"
+    config:
+      useIndexSignature: true
+      contextType: "../index#MyContext"
+ignoreNoDocuments: true
