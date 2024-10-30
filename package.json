@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "graphql-typegen": "graphql-codegen --config src/graphql/codegen.yml",
-    "graphql-typegen-watch": "nodemon -e gql,graphql --exec 'npm run graphql-typegen'",
-    "generate-schema": "dotenv -e .env -- sh -c 'npx supabase gen types --db-url $DATABASE_URL > ./src/database.schema.ts --debug'",
+    "graphql-typegen-watch": "nodemon -e gql,graphql,tsx,ts --exec 'npm run graphql-typegen'",
+    "generate-schema": "dotenv -e .env -- sh -c 'npx supabase gen types --lang=typescript --project-id $PROJECT_REF --schema public > ./src/database.schema.ts --debug'",
     "dev": "concurrently -c \"red,green,blue\" -n \"graphql-ts,supabse-ts,next dev\" \"npm run graphql-typegen-watch\" \"npm run generate-schema\" \"next dev\"",
     "build": "next build",
     "start": "next start",
@@ -19,6 +19,7 @@
     "@graphql-tools/load-files": "^7.0.0",
     "@graphql-typed-document-node/core": "^3.2.0",
     "@hookform/resolvers": "^3.9.0",
+    "@radix-ui/react-dialog": "^1.1.1",
     "@supabase/ssr": "^0.5.0",
     "@supabase/supabase-js": "^2.45.2",
     "cross-fetch": "^4.0.0",

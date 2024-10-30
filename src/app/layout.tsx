@@ -23,13 +23,10 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} flex flex-col h-lvh bg-slate-900 text-white`}>
+      <body className={`${inter.className} flex flex-col h-lvh bg-white text-black`}>
         <ApolloProvider>
           <UserProvider>
-            <Navbar/>
-            <div className="w-full max-w-screen-md flex-1 mx-auto">
-              {children}
-            </div>
+            {children}
           </UserProvider>
         </ApolloProvider>
         <ToastContainer />

@@ -1,8 +1,8 @@
 import { gql } from "@/__generated__";
 
-export const GET_POSTS = gql(`
- query getPosts {
-    posts {
+export const GET_POST = gql(`
+ query getPost($id: ID!) {
+    post(id: $id) {
         id
         title,
         content,

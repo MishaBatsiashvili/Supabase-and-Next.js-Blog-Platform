@@ -7,4 +7,27 @@ type Post {
 
 type Query {
     posts: [Post!]
+    post(id: ID!): Post
+}
+
+type DeletePostResponse {
+    status: Int,
+    affectedRows: Int
+}
+
+input CreatePostInput {
+    title: String!
+    content: String!
+}
+
+input UpdatePostInput {
+    id: ID!
+    title: String!
+    content: String!
+}
+
+type Mutation {
+    deletePost(id: ID!): DeletePostResponse
+    createPost(input: CreatePostInput!): Post!
+    updatePost(input: UpdatePostInput!): Post!
 }
