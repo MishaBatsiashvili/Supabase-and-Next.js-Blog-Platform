@@ -4,6 +4,7 @@ import { loadFilesSync } from "@graphql-tools/load-files";
 // This is the file where our generated types live
 // (specified in our `codegen.yml` file)
 import type { Resolvers } from "@/__generated__/resolvers-types";
+import axios from "axios";
 // import { readFileSync } from 'fs';
 
 const typeDefs = loadFilesSync("src/graphql/**/*.graphql");
@@ -28,6 +29,10 @@ const resolvers: Resolvers = {
         .single();
       return data;
     },
+    s3uploadUrl: async (_, args) => {
+      const res = await axios.get<{ url: string }>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/s3image-upload-url?objectKey=${args.objectKey}`)
+      return res.data.url
+    }
   },
   Mutation: {
     deletePost: async (_, args) => {

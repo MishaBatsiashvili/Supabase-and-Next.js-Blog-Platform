@@ -1,6 +1,6 @@
 "use client";
 
-import FieldError from "@/components/common/form/FieldError/FieldError";
+import FieldErrorItem from "@/components/common/form/FieldError/FieldError";
 import { useUser } from "@/contexts/UserContext/UserContext";
 import formDataToObject from "@/utils/formDataToObject";
 import { createClient } from "@/utils/supabase/client";
@@ -27,7 +27,7 @@ const LoginForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm<InputsType>({
     resolver: zodResolver(schema),
   });
@@ -44,7 +44,7 @@ const LoginForm = () => {
 
     setIsLoggingIn(false);
 
-    reset()
+    reset();
   };
 
   return (
@@ -58,7 +58,7 @@ const LoginForm = () => {
         <div className="mt-8">
           <div className="mt-3">
             <label className="block text-white">Email</label>
-            <FieldError className="mt-2" error={errors["email"]} />
+            <FieldErrorItem className="mt-2" error={errors["email"]} />
             <input
               {...register("email")}
               type="email"
@@ -69,7 +69,7 @@ const LoginForm = () => {
 
           <div className="mt-3">
             <label className="block text-white">Password</label>
-            <FieldError className="mt-2" error={errors["password"]} />
+            <FieldErrorItem className="mt-2" error={errors["password"]} />
             <input
               {...register("password")}
               type="password"

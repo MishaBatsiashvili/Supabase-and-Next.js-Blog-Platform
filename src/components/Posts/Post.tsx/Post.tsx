@@ -11,9 +11,11 @@ type PostProps = {
     post: NonNullable<GetPostsQuery['posts']>[0];
     user: User;
     variant: 'half' | 'halfShort' | 'fullShort';
+    titleCharSize?: number
+    contentCharSize?: number
 };
 
-const Post: React.FC<PostProps> = ({ post, user, variant = 'half' }) => {
+const Post: React.FC<PostProps> = ({ post, user, variant = 'half', titleCharSize, contentCharSize }) => {
     const [editModalIsOpen, setEditModalIsOpen] = useState(false);
 
     const [mutateFunction] = useMutation(DELETE_POSTS, {
@@ -36,11 +38,11 @@ const Post: React.FC<PostProps> = ({ post, user, variant = 'half' }) => {
     const renderVariant = () => {
         switch (variant) {
             case 'half':
-                return <HalfPost post={post} />;
+                return <HalfPost post={post} titleCharSize={titleCharSize} contentCharSize={contentCharSize} />;
             case 'halfShort':
-                return <HalfShortPost post={post} />;
+                return <HalfShortPost post={post} titleCharSize={titleCharSize} contentCharSize={contentCharSize} />;
             case 'fullShort':
-                return <FullShortPost post={post} />;
+                return <FullShortPost post={post} titleCharSize={titleCharSize} contentCharSize={contentCharSize} />;
             default:
                 return null;
         }

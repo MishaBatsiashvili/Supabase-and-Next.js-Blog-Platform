@@ -34,6 +34,14 @@ export async function updateSession(request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser();
 
+  if(request.url.includes('/api/graphql')){
+    return response
+  }
+
+  if(request.url.includes('/api/s3image-upload-url')){
+    return response
+  }
+
   if (!user && !request.nextUrl.pathname.startsWith("/auth")) {
     return redirectTo(request, "/auth/login");
   }

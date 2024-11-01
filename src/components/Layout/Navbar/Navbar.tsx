@@ -27,9 +27,10 @@ const Navbar: React.FC = () => {
         {renderUser()}
         {/* <div>Navbar</div> */}
         <div>
-          <Link href="/" className="mr-3">Blog</Link>
+          <Link href="/" className="mr-3">Home</Link>
+          <Link href="/blog" className="mr-3">Blog</Link>
+          <Link href="/newsletter" className="mr-3">My Posts</Link>
           <Link href="/about" className="mr-3">About</Link>
-          <Link href="/newsletter" className="mr-3">Newsletter</Link>
 
           <input type="checkbox" name="isDarkMode" />
         </div>

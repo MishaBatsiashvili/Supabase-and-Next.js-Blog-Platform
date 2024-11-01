@@ -54,6 +54,7 @@ export type Post = {
   __typename?: 'Post';
   content: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  s3_image_object_key: Scalars['String']['output'];
   title: Scalars['String']['output'];
   user_id: Scalars['ID']['output'];
 };
@@ -62,11 +63,17 @@ export type Query = {
   __typename?: 'Query';
   post?: Maybe<Post>;
   posts?: Maybe<Array<Post>>;
+  s3uploadUrl?: Maybe<Scalars['String']['output']>;
 };
 
 
 export type QueryPostArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type QueryS3uploadUrlArgs = {
+  objectKey: Scalars['String']['input'];
 };
 
 export type UpdatePostInput = {
@@ -188,6 +195,7 @@ export type MutationResolvers<ContextType = MyContext, ParentType extends Resolv
 export type PostResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = ResolversObject<{
   content?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  s3_image_object_key?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   user_id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -196,6 +204,7 @@ export type PostResolvers<ContextType = MyContext, ParentType extends ResolversP
 export type QueryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   post?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<QueryPostArgs, 'id'>>;
   posts?: Resolver<Maybe<Array<ResolversTypes['Post']>>, ParentType, ContextType>;
+  s3uploadUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryS3uploadUrlArgs, 'objectKey'>>;
 }>;
 
 export type Resolvers<ContextType = MyContext> = ResolversObject<{

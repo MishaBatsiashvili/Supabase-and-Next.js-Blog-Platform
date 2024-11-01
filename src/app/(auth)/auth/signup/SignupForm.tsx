@@ -1,6 +1,6 @@
 "use client";
 
-import FieldError from "@/components/common/form/FieldError/FieldError";
+import FieldErrorItem from "@/components/common/form/FieldError/FieldError";
 import { useUser } from "@/contexts/UserContext/UserContext";
 import formDataToObject from "@/utils/formDataToObject";
 import { createClient } from "@/utils/supabase/client";
@@ -20,41 +20,45 @@ const schema = z.object({
 type InputsType = z.infer<typeof schema>;
 
 const SignupForm = () => {
-  const { signUp } = useUser()
-  const [isSigningUp, setIsSigningUp] = useState(false)
+  const { signUp } = useUser();
+  const [isSigningUp, setIsSigningUp] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm<InputsType>({
     resolver: zodResolver(schema),
   });
 
   const submit = async (formData: InputsType) => {
     const { email, password } = formData;
-    
-    setIsSigningUp(true)
-    
+
+    setIsSigningUp(true);
+
     await signUp({
       email,
-      password
-    })
+      password,
+    });
 
-    setIsSigningUp(false)
+    setIsSigningUp(false);
 
-    reset()
+    reset();
   };
 
   return (
     <div className="w-full">
-      <form className="w-full p-8 rounded-lg bg-slate-800" method="post" onSubmit={handleSubmit(submit)}>
+      <form
+        className="w-full p-8 rounded-lg bg-slate-800"
+        method="post"
+        onSubmit={handleSubmit(submit)}
+      >
         <h1 className="text-4xl font-bold text-white text-center">Sign Up</h1>
         <div className="mt-8">
           <div className="mt-3">
             <label className="block text-white">Email</label>
-            <FieldError className="mt-2" error={errors["email"]} />
+            <FieldErrorItem className="mt-2" error={errors["email"]} />
             <input
               {...register("email")}
               type="email"
@@ -65,7 +69,7 @@ const SignupForm = () => {
 
           <div className="mt-3">
             <label className="block text-white">Password</label>
-            <FieldError className="mt-2" error={errors["password"]} />
+            <FieldErrorItem className="mt-2" error={errors["password"]} />
             <input
               {...register("password")}
               type="password"
@@ -74,12 +78,20 @@ const SignupForm = () => {
             />
           </div>
 
-          <button disabled={isSigningUp} className="mt-7 w-full p-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded-md">
-            { isSigningUp ? 'Loading...' : 'Sign Up' }
+          <button
+            disabled={isSigningUp}
+            className="mt-7 w-full p-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded-md"
+          >
+            {isSigningUp ? "Loading..." : "Sign Up"}
           </button>
         </div>
       </form>
-      <Link href={'/auth/login'} className="text-center mt-3 block text-sm underline">Log In</Link>
+      <Link
+        href={"/auth/login"}
+        className="text-center mt-3 block text-sm underline"
+      >
+        Log In
+      </Link>
     </div>
   );
 };

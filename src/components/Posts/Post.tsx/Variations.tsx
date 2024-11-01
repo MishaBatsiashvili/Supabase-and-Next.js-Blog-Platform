@@ -7,6 +7,8 @@ const IMAGE = 'https://i.ytimg.com/vi/fAMfYPmyDbk/hq720.jpg?sqp=-oaymwEhCK4FEIID
 
 type PostProps = {
     post: NonNullable<GetPostsQuery['posts']>[0]
+    titleCharSize?: number
+    contentCharSize?: number
 }
 
 // Example component for HalfPost
@@ -18,8 +20,8 @@ const HalfPost: React.FC<PostProps> = ({ post }) => (
             </div>
             <div className='basis-6/12 pt-6'>
                 <span className='text-xs text-violet-700'>Sunday , 1 Jan 2023</span>
-                <h1 className="text-xl font-bold mt-1">{post.title}</h1>
-                <p className='text-sm text-gray-400 mt-3'>{textTruncate(post.content, 160)}</p>
+                <h1 className="text-xl font-bold mt-1 truncate-multi-line-1">{post.title}</h1>
+                <p className='text-sm text-gray-400 mt-3 truncate-multi-line-3'>{post.content}</p>
                 <div className='flex flex-wrap mt-8 gap-2'>
                     <span className='text-xs px-4 py-1 bg-gray-100 rounded-lg'>Design</span>
                     <span className='text-xs px-4 py-1 bg-gray-100 rounded-lg'>Development</span>
@@ -40,8 +42,8 @@ const HalfShortPost: React.FC<PostProps> = ({ post }) => (
             </div>
             <div>
                 <span className='text-xs text-violet-700'>Sunday , 1 Jan 2023</span>
-                <h1 className="text-lg font-bold mt-1">{post.title}</h1>
-                <p className='text-sm text-gray-500 mt-3'>{textTruncate(post.content, 130)}</p>
+                <h1 className="text-lg font-bold mt-1 truncate-multi-line-1">{post.title}</h1>
+                <p className='text-sm text-gray-500 mt-3 truncate-multi-line-3'>{post.content}</p>
                 <div className='flex flex-wrap mt-8 gap-2'>
                     <span className='text-xs px-4 py-1 bg-gray-100 rounded-lg'>Design</span>
                     <span className='text-xs px-4 py-1 bg-gray-100 rounded-lg'>Development</span>

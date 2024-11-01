@@ -12,20 +12,29 @@ export type Database = {
       posts: {
         Row: {
           content: string
+          created_at: string | null
           id: string
+          s3_image_object_key: string
           title: string
+          updated_at: string | null
           user_id: string
         }
         Insert: {
           content: string
+          created_at?: string | null
           id?: string
+          s3_image_object_key: string
           title: string
+          updated_at?: string | null
           user_id: string
         }
         Update: {
           content?: string
+          created_at?: string | null
           id?: string
+          s3_image_object_key?: string
           title?: string
+          updated_at?: string | null
           user_id?: string
         }
         Relationships: []
