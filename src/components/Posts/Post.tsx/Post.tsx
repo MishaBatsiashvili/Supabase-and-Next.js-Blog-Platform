@@ -6,6 +6,7 @@ import { useMutation } from "@apollo/client";
 import { User } from "@supabase/supabase-js";
 import React, { useState } from "react";
 import { HalfPost, HalfShortPost, FullShortPost } from "./Variations"; // import your variants
+import Link from "next/link";
 
 type PostProps = {
     post: NonNullable<GetPostsQuery['posts']>[0];
@@ -50,7 +51,9 @@ const Post: React.FC<PostProps> = ({ post, user, variant = 'half', titleCharSize
 
     return (
         <div className="block rounded-md">
-            {renderVariant()}
+            <Link href={`/post/${post.id}`}>
+                {renderVariant()}
+            </Link>
             {/* {renderActionButtons()} */}
         </div>
     );

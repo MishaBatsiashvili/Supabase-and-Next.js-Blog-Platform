@@ -4,7 +4,7 @@ const nextConfig = {
         remotePatterns: [
           {
             protocol: 'https',
-            hostname: 'i.ytimg.com',
+            hostname: process.env.NEXT_PUBLIC_AWS_S3_DOMAIN,
           },
         ],
       },

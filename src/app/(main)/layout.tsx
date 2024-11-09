@@ -6,13 +6,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    <div className="px-5">
       <Navbar/>
       <div className="w-full max-w-screen-lg flex-1 mx-auto">
-        <div className="p-5">
+        <div>
           {children}
         </div>
       </div>
-    </>
+    </div>
   );
 }

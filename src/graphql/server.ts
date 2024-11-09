@@ -10,6 +10,16 @@ import axios from "axios";
 const typeDefs = loadFilesSync("src/graphql/**/*.graphql");
 const resolvers: Resolvers = {
   Query: {
+    comments: async (_,args) => {
+      const supabase = createClient();
+      const { data, error } = await supabase.from("comments").select("*").eq('post_id', args.postId);
+
+      if (error) {
+        return [];
+      }
+
+      return data;
+    },
     posts: async () => {
       const supabase = createClient();
       const { data, error } = await supabase.from("posts").select("*").order('id');

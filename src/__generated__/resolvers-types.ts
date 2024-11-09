@@ -17,6 +17,16 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+export type Comment = {
+  __typename?: 'Comment';
+  comment?: Maybe<Scalars['String']['output']>;
+  created_at?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  post_id: Scalars['ID']['output'];
+  updated_at?: Maybe<Scalars['String']['output']>;
+  user_id: Scalars['ID']['output'];
+};
+
 export type CreatePostInput = {
   content: Scalars['String']['input'];
   title: Scalars['String']['input'];
@@ -53,17 +63,25 @@ export type MutationUpdatePostArgs = {
 export type Post = {
   __typename?: 'Post';
   content: Scalars['String']['output'];
+  created_at?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   s3_image_object_key: Scalars['String']['output'];
   title: Scalars['String']['output'];
+  updated_at?: Maybe<Scalars['String']['output']>;
   user_id: Scalars['ID']['output'];
 };
 
 export type Query = {
   __typename?: 'Query';
+  comments?: Maybe<Array<Maybe<Comment>>>;
   post?: Maybe<Post>;
   posts?: Maybe<Array<Post>>;
   s3uploadUrl?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type QueryCommentsArgs = {
+  postId: Scalars['ID']['input'];
 };
 
 
@@ -155,6 +173,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  Comment: ResolverTypeWrapper<Comment>;
   CreatePostInput: CreatePostInput;
   DeletePostResponse: ResolverTypeWrapper<DeletePostResponse>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
@@ -169,6 +188,7 @@ export type ResolversTypes = ResolversObject<{
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean']['output'];
+  Comment: Comment;
   CreatePostInput: CreatePostInput;
   DeletePostResponse: DeletePostResponse;
   ID: Scalars['ID']['output'];
@@ -178,6 +198,16 @@ export type ResolversParentTypes = ResolversObject<{
   Query: {};
   String: Scalars['String']['output'];
   UpdatePostInput: UpdatePostInput;
+}>;
+
+export type CommentResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Comment'] = ResolversParentTypes['Comment']> = ResolversObject<{
+  comment?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  post_id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  user_id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type DeletePostResponseResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['DeletePostResponse'] = ResolversParentTypes['DeletePostResponse']> = ResolversObject<{
@@ -194,20 +224,24 @@ export type MutationResolvers<ContextType = MyContext, ParentType extends Resolv
 
 export type PostResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = ResolversObject<{
   content?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  created_at?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   s3_image_object_key?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updated_at?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   user_id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type QueryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+  comments?: Resolver<Maybe<Array<Maybe<ResolversTypes['Comment']>>>, ParentType, ContextType, RequireFields<QueryCommentsArgs, 'postId'>>;
   post?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<QueryPostArgs, 'id'>>;
   posts?: Resolver<Maybe<Array<ResolversTypes['Post']>>, ParentType, ContextType>;
   s3uploadUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryS3uploadUrlArgs, 'objectKey'>>;
 }>;
 
 export type Resolvers<ContextType = MyContext> = ResolversObject<{
+  Comment?: CommentResolvers<ContextType>;
   DeletePostResponse?: DeletePostResponseResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;

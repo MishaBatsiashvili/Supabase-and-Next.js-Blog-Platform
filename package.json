@@ -5,7 +5,7 @@
   "scripts": {
     "graphql-typegen": "graphql-codegen --config src/graphql/codegen.yml",
     "graphql-typegen-watch": "nodemon -e gql,graphql,tsx,ts --exec 'npm run graphql-typegen'",
-    "generate-schema": "dotenv -e .env -- sh -c 'npx supabase gen types --lang=typescript --project-id $PROJECT_REF --schema public > ./src/database.schema.ts --debug'",
+    "generate-schema": "dotenv -e .env.local -- sh -c 'npx supabase gen types --lang=typescript --project-id $PROJECT_REF --schema public > ./src/database.schema.ts --debug'",
     "dev": "concurrently -c \"red,green,blue\" -n \"graphql-ts,supabse-ts,next dev\" \"npm run graphql-typegen-watch\" \"npm run generate-schema\" \"next dev\"",
     "build": "next build",
     "start": "next start",

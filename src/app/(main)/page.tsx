@@ -21,11 +21,11 @@ export default async function Page() {
       
         <AddNewPost />
       
-      <RecentPosts user={user} />
+      {/* <RecentPosts user={user} /> */}
       
-      {/* <div className="mt-6">
+      <div className="mt-6">
         <AllPosts user={user} />
-      </div> */}
+      </div>
 
     </main>
   );
