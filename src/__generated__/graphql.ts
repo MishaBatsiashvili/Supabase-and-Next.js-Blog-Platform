@@ -26,9 +26,19 @@ export type Comment = {
   user_id: Scalars['ID']['output'];
 };
 
+export type CreateCommentInput = {
+  comment: Scalars['String']['input'];
+  postId: Scalars['ID']['input'];
+};
+
 export type CreatePostInput = {
   content: Scalars['String']['input'];
+  s3_image_object_key: Scalars['String']['input'];
   title: Scalars['String']['input'];
+};
+
+export type DeleteCommentInput = {
+  id: Scalars['ID']['input'];
 };
 
 export type DeletePostResponse = {
@@ -91,6 +101,11 @@ export type QueryPostArgs = {
 
 export type QueryS3uploadUrlArgs = {
   objectKey: Scalars['String']['input'];
+};
+
+export type UpdateCommentInput = {
+  comment: Scalars['String']['input'];
+  postId: Scalars['ID']['input'];
 };
 
 export type UpdatePostInput = {

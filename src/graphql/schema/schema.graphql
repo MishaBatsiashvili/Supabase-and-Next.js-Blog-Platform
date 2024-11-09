@@ -1,0 +1,69 @@
+# !!! THIS IS GENERATED FILE
+
+input CreateCommentInput {
+  postId: ID!
+  comment: String!
+}
+
+input UpdateCommentInput {
+  postId: ID!
+  comment: String!
+}
+
+input DeleteCommentInput {
+  id: ID!
+}
+
+input CreatePostInput {
+  title: String!
+  content: String!
+  s3_image_object_key: String!
+}
+
+input UpdatePostInput {
+  id: ID!
+  title: String!
+  content: String!
+}
+
+type Mutation {
+  deletePost(id: ID!): DeletePostResponse
+  createPost(input: CreatePostInput!): Post!
+  updatePost(input: UpdatePostInput!): Post!
+}
+
+type Query {
+  comments(postId: ID!): [Comment]
+  posts: [Post!]
+  post(id: ID!): Post
+  s3uploadUrl(objectKey: String!): String
+}
+
+type Comment {
+  id: ID!
+  comment: String
+  user_id: ID!
+  post_id: ID!
+  created_at: String
+  updated_at: String
+}
+
+type Post {
+  id: ID!
+  user_id: ID!
+  title: String!
+  content: String!
+  s3_image_object_key: String!
+  created_at: String
+  updated_at: String
+}
+
+type DeletePostResponse {
+  status: Int
+  affectedRows: Int
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}

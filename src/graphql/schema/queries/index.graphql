@@ -1,0 +1,6 @@
+type Query {
+    comments(postId: ID!): [Comment]
+    posts: [Post!]
+    post(id: ID!): Post
+    s3uploadUrl(objectKey: String!): String
+}

@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "graphql-typegen": "graphql-codegen --config src/graphql/codegen.yml",
+    "graphql-merge-schema": "tsx src/graphql/mergeSchema.ts",
+    "graphql-typegen": "npm run graphql-merge-schema && graphql-codegen --config src/graphql/codegen.yml",
     "graphql-typegen-watch": "nodemon -e gql,graphql,tsx,ts --exec 'npm run graphql-typegen'",
     "generate-schema": "dotenv -e .env.local -- sh -c 'npx supabase gen types --lang=typescript --project-id $PROJECT_REF --schema public > ./src/database.schema.ts --debug'",
     "dev": "concurrently -c \"red,green,blue\" -n \"graphql-ts,supabse-ts,next dev\" \"npm run graphql-typegen-watch\" \"npm run generate-schema\" \"next dev\"",
@@ -19,6 +20,7 @@
     "@aws-sdk/s3-request-presigner": "^3.682.0",
     "@graphql-codegen/client-preset": "^4.3.3",
     "@graphql-tools/load-files": "^7.0.0",
+    "@graphql-tools/merge": "^9.0.8",
     "@graphql-typed-document-node/core": "^3.2.0",
     "@hookform/resolvers": "^3.9.0",
     "@radix-ui/react-dialog": "^1.1.1",
@@ -32,6 +34,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.53.0",
     "react-toastify": "^10.0.5",
+    "tsx": "^4.19.2",
     "zod": "^3.23.8"
   },
   "devDependencies": {

@@ -1,4 +1,4 @@
-schema: "src/graphql/schema.graphql"
+schema: "src/graphql/schema/schema.graphql"
 documents:
   - 'src/**/*.{ts,tsx}'
 generates:
@@ -15,3 +15,4 @@ generates:
       useIndexSignature: true
       contextType: "../index#MyContext"
 ignoreNoDocuments: true
+

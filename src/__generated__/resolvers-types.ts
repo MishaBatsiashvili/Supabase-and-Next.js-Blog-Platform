@@ -27,9 +27,19 @@ export type Comment = {
   user_id: Scalars['ID']['output'];
 };
 
+export type CreateCommentInput = {
+  comment: Scalars['String']['input'];
+  postId: Scalars['ID']['input'];
+};
+
 export type CreatePostInput = {
   content: Scalars['String']['input'];
+  s3_image_object_key: Scalars['String']['input'];
   title: Scalars['String']['input'];
+};
+
+export type DeleteCommentInput = {
+  id: Scalars['ID']['input'];
 };
 
 export type DeletePostResponse = {
@@ -92,6 +102,11 @@ export type QueryPostArgs = {
 
 export type QueryS3uploadUrlArgs = {
   objectKey: Scalars['String']['input'];
+};
+
+export type UpdateCommentInput = {
+  comment: Scalars['String']['input'];
+  postId: Scalars['ID']['input'];
 };
 
 export type UpdatePostInput = {
@@ -174,7 +189,9 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Comment: ResolverTypeWrapper<Comment>;
+  CreateCommentInput: CreateCommentInput;
   CreatePostInput: CreatePostInput;
+  DeleteCommentInput: DeleteCommentInput;
   DeletePostResponse: ResolverTypeWrapper<DeletePostResponse>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
@@ -182,6 +199,7 @@ export type ResolversTypes = ResolversObject<{
   Post: ResolverTypeWrapper<Post>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
+  UpdateCommentInput: UpdateCommentInput;
   UpdatePostInput: UpdatePostInput;
 }>;
 
@@ -189,7 +207,9 @@ export type ResolversTypes = ResolversObject<{
 export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean']['output'];
   Comment: Comment;
+  CreateCommentInput: CreateCommentInput;
   CreatePostInput: CreatePostInput;
+  DeleteCommentInput: DeleteCommentInput;
   DeletePostResponse: DeletePostResponse;
   ID: Scalars['ID']['output'];
   Int: Scalars['Int']['output'];
@@ -197,6 +217,7 @@ export type ResolversParentTypes = ResolversObject<{
   Post: Post;
   Query: {};
   String: Scalars['String']['output'];
+  UpdateCommentInput: UpdateCommentInput;
   UpdatePostInput: UpdatePostInput;
 }>;
 

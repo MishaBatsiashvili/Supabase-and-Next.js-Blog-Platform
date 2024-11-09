@@ -1,13 +1,20 @@
 import { createClient } from "@/utils/supabase/server";
 import { ApolloServer } from "@apollo/server";
 import { loadFilesSync } from "@graphql-tools/load-files";
+import { mergeTypeDefs } from '@graphql-tools/merge'
 // This is the file where our generated types live
 // (specified in our `codegen.yml` file)
 import type { Resolvers } from "@/__generated__/resolvers-types";
 import axios from "axios";
+import path from "path";
+import { writeFileSync } from "fs";
 // import { readFileSync } from 'fs';
 
-const typeDefs = loadFilesSync("src/graphql/**/*.graphql");
+const typesArray = loadFilesSync('src/graphql/**/*.graphql')
+const typeDefs = mergeTypeDefs(typesArray)
+const outputPath = path.join(__dirname, '/schema/schema.graphql');
+writeFileSync(outputPath, typeDefs);
+
 const resolvers: Resolvers = {
   Query: {
     comments: async (_,args) => {
@@ -78,6 +85,7 @@ const resolvers: Resolvers = {
           title: input.title,
           content: input.content,
           user_id: userId,
+          s3_image_object_key: input.s3_image_object_key
         })
         .select()
         .single();
