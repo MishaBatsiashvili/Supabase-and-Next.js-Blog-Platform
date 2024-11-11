@@ -1,14 +1,15 @@
-import createApolloClient from "@/graphql/client/createApolloClient";
-import { GET_POST } from "@/graphql/client/queries/GET_POST";
-import { createClient } from "@/utils/supabase/server";
-import Link from "next/link";
-import Comments from "./components/Comments/Comments";
-import AddComment from "./components/Comments/AddComment/AddComment";
-
-
+import createApolloClient from '@/graphql/client/createApolloClient'
+import { GET_POST } from '@/graphql/client/queries/GET_POST'
+import { createClient } from '@/utils/supabase/server'
+import Link from 'next/link'
+import Comments from './components/Comments/Comments'
+import AddComment from './components/Comments/AddComment/AddComment'
+import Image from 'next/image'
+import { getS3ImageUrl } from '@/utils/helpers/getS3ImageUrl'
+import PostActions from './components/PostActions/PostActions'
+import PostView from './components/PostView/PostView'
 
 export default async function Page({ params }: { params: { id: string } }) {
-
   const supabase = createClient()
   const resp = await supabase.auth.getUser()
   const user = resp.data.user
@@ -16,26 +17,33 @@ export default async function Page({ params }: { params: { id: string } }) {
   const client = createApolloClient()
   const { data, error } = await client.query({
     query: GET_POST,
-    variables: { id: params.id }
+    variables: { id: params.id },
   })
-  console.log(data)
+  
 
-  if(!user || !data.post){
+  if (!user || !data.post) {
     return <></>
   }
 
   return (
-    <main>
-      <Link href={'/'}>Go to All Posts</Link>
-      <h1 className="text-4xl font-bold text-center">{data.post?.title}</h1>
-      <p className="mt-8">{data.post?.content}</p>
-      
+    <main className="mx-auto max-w-[600px]">
+      <Link href={'/'}>
+        <button className="rounded-md bg-gray-600 px-3 py-2 text-sm text-white">
+          Go to All Posts
+        </button>
+      </Link>
+
+      <PostView post={data.post} />
+
       <div className="mx-auto max-w-[400px]">
-        <AddComment/>
+        <AddComment postId={data.post.id} />
         <div className="mt-5">
-          <Comments postId={data.post?.id} />
+          <Comments postId={data.post.id} />
         </div>
       </div>
+
+      
+      
     </main>
-  );
+  )
 }

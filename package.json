@@ -5,7 +5,7 @@
   "scripts": {
     "graphql-merge-schema": "tsx src/graphql/mergeSchema.ts",
     "graphql-typegen": "npm run graphql-merge-schema && graphql-codegen --config src/graphql/codegen.yml",
-    "graphql-typegen-watch": "nodemon -e gql,graphql,tsx,ts --exec 'npm run graphql-typegen'",
+    "graphql-typegen-watch": "nodemon -e gql,graphql,tsx,ts --ignore src/graphql/schema/schema.graphql --exec 'npm run graphql-typegen'",
     "generate-schema": "dotenv -e .env.local -- sh -c 'npx supabase gen types --lang=typescript --project-id $PROJECT_REF --schema public > ./src/database.schema.ts --debug'",
     "dev": "concurrently -c \"red,green,blue\" -n \"graphql-ts,supabse-ts,next dev\" \"npm run graphql-typegen-watch\" \"npm run generate-schema\" \"next dev\"",
     "build": "next build",
@@ -29,6 +29,7 @@
     "axios": "^1.7.7",
     "cross-fetch": "^4.0.0",
     "graphql": "^16.9.0",
+    "moment": "^2.30.1",
     "next": "14.2.6",
     "react": "^18",
     "react-dom": "^18",
@@ -47,6 +48,8 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.6",
     "postcss": "^8",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.5.4"
   }

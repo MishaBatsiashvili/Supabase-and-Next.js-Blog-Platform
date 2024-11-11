@@ -19,8 +19,8 @@ const Comments: React.FC<{
 
   return (
     <div>
-      <h3>Comments</h3>
-      <div className="mt-2">
+      <h3 className='font-bold'>Comments</h3>
+      <div className="pt-2 pb-12">
         {commentsData.comments?.map((el) => {
           if(!el){
             return <></>

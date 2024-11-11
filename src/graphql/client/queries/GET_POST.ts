@@ -6,7 +6,8 @@ export const GET_POST = gql(`
         id
         title,
         content,
-        user_id
+        user_id,
+        s3_image_object_key
     }
  }
 `)

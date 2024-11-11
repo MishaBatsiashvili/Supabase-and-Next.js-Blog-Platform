@@ -6,3 +6,18 @@ type Comment {
     created_at: String
     updated_at: String
 }
+
+type DeleteCommentResponse {
+    status: Int
+    affectedRows: Int
+}
+
+input CreateCommentInput {
+    postId: ID!
+    comment: String!
+}
+
+input UpdateCommentInput {
+    id: ID!
+    comment: String!
+}

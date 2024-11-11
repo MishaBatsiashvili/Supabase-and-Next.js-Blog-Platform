@@ -41,7 +41,7 @@ export const useRealtimeComments = (postId: string) => {
                       ...newComment,
                     }, true);
               
-                    return [...existingCommentRefs, newCommentRef];
+                    return [newCommentRef, ...existingCommentRefs];
                   },
                 },
               });

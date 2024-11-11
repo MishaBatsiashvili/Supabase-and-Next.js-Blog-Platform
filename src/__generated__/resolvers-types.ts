@@ -38,8 +38,10 @@ export type CreatePostInput = {
   title: Scalars['String']['input'];
 };
 
-export type DeleteCommentInput = {
-  id: Scalars['ID']['input'];
+export type DeleteCommentResponse = {
+  __typename?: 'DeleteCommentResponse';
+  affectedRows?: Maybe<Scalars['Int']['output']>;
+  status?: Maybe<Scalars['Int']['output']>;
 };
 
 export type DeletePostResponse = {
@@ -50,9 +52,18 @@ export type DeletePostResponse = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createComment: Comment;
   createPost: Post;
+  deleteComment?: Maybe<DeleteCommentResponse>;
+  deleteCommentInput?: Maybe<DeleteCommentResponse>;
   deletePost?: Maybe<DeletePostResponse>;
+  updateComment: Comment;
   updatePost: Post;
+};
+
+
+export type MutationCreateCommentArgs = {
+  input: CreateCommentInput;
 };
 
 
@@ -61,8 +72,23 @@ export type MutationCreatePostArgs = {
 };
 
 
+export type MutationDeleteCommentArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteCommentInputArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
 export type MutationDeletePostArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdateCommentArgs = {
+  input: UpdateCommentInput;
 };
 
 
@@ -106,12 +132,13 @@ export type QueryS3uploadUrlArgs = {
 
 export type UpdateCommentInput = {
   comment: Scalars['String']['input'];
-  postId: Scalars['ID']['input'];
+  id: Scalars['ID']['input'];
 };
 
 export type UpdatePostInput = {
   content: Scalars['String']['input'];
   id: Scalars['ID']['input'];
+  s3_image_object_key?: InputMaybe<Scalars['String']['input']>;
   title: Scalars['String']['input'];
 };
 
@@ -191,7 +218,7 @@ export type ResolversTypes = ResolversObject<{
   Comment: ResolverTypeWrapper<Comment>;
   CreateCommentInput: CreateCommentInput;
   CreatePostInput: CreatePostInput;
-  DeleteCommentInput: DeleteCommentInput;
+  DeleteCommentResponse: ResolverTypeWrapper<DeleteCommentResponse>;
   DeletePostResponse: ResolverTypeWrapper<DeletePostResponse>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
@@ -209,7 +236,7 @@ export type ResolversParentTypes = ResolversObject<{
   Comment: Comment;
   CreateCommentInput: CreateCommentInput;
   CreatePostInput: CreatePostInput;
-  DeleteCommentInput: DeleteCommentInput;
+  DeleteCommentResponse: DeleteCommentResponse;
   DeletePostResponse: DeletePostResponse;
   ID: Scalars['ID']['output'];
   Int: Scalars['Int']['output'];
@@ -231,6 +258,12 @@ export type CommentResolvers<ContextType = MyContext, ParentType extends Resolve
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type DeleteCommentResponseResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['DeleteCommentResponse'] = ResolversParentTypes['DeleteCommentResponse']> = ResolversObject<{
+  affectedRows?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type DeletePostResponseResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['DeletePostResponse'] = ResolversParentTypes['DeletePostResponse']> = ResolversObject<{
   affectedRows?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   status?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -238,8 +271,12 @@ export type DeletePostResponseResolvers<ContextType = MyContext, ParentType exte
 }>;
 
 export type MutationResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  createComment?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationCreateCommentArgs, 'input'>>;
   createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationCreatePostArgs, 'input'>>;
+  deleteComment?: Resolver<Maybe<ResolversTypes['DeleteCommentResponse']>, ParentType, ContextType, RequireFields<MutationDeleteCommentArgs, 'id'>>;
+  deleteCommentInput?: Resolver<Maybe<ResolversTypes['DeleteCommentResponse']>, ParentType, ContextType, RequireFields<MutationDeleteCommentInputArgs, 'id'>>;
   deletePost?: Resolver<Maybe<ResolversTypes['DeletePostResponse']>, ParentType, ContextType, RequireFields<MutationDeletePostArgs, 'id'>>;
+  updateComment?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationUpdateCommentArgs, 'input'>>;
   updatePost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationUpdatePostArgs, 'input'>>;
 }>;
 
@@ -263,6 +300,7 @@ export type QueryResolvers<ContextType = MyContext, ParentType extends Resolvers
 
 export type Resolvers<ContextType = MyContext> = ResolversObject<{
   Comment?: CommentResolvers<ContextType>;
+  DeleteCommentResponse?: DeleteCommentResponseResolvers<ContextType>;
   DeletePostResponse?: DeletePostResponseResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;

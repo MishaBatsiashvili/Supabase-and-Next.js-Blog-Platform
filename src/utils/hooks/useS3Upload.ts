@@ -24,7 +24,7 @@ export const useS3Upload = () => {
   }
 
   const handleS3FileUpload = async (file: File) => {
-    if (!file) return false
+    if (!file) return undefined
     const objectKey = generatedObjectKey(file)
     setFileIsUploading(true)
     const s3uploadUrl = await getPresignedUrl(file, objectKey)
@@ -44,7 +44,7 @@ export const useS3Upload = () => {
     }
 
     setFileIsUploading(false)
-    return false
+    return undefined
   }
 
   return {

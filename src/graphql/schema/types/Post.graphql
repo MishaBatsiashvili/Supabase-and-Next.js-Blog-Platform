@@ -12,3 +12,16 @@ type DeletePostResponse {
     status: Int
     affectedRows: Int
 }
+
+input CreatePostInput {
+    title: String!
+    content: String!
+    s3_image_object_key: String!
+}
+
+input UpdatePostInput {
+    id: ID!
+    title: String!
+    content: String!
+    s3_image_object_key: String
+}

@@ -26,6 +26,9 @@ const Navbar: React.FC = () => {
       <div className="w-full max-w-screen-lg mx-auto py-8 flex justify-between">
         {renderUser()}
         {/* <div>Navbar</div> */}
+
+        <input placeholder="search posts" />
+
         <div>
           <Link href="/" className="mr-3">Home</Link>
           <Link href="/blog" className="mr-3">Blog</Link>
@@ -33,6 +36,7 @@ const Navbar: React.FC = () => {
           <Link href="/about" className="mr-3">About</Link>
 
           <input type="checkbox" name="isDarkMode" />
+
         </div>
       </div>
     </div>

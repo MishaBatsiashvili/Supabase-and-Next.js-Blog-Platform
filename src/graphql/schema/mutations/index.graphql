@@ -1,31 +1,8 @@
-input CreateCommentInput {
-    postId: ID!
-    comment: String!
-}
-
-input UpdateCommentInput {
-    postId: ID!
-    comment: String!
-}
-
-input DeleteCommentInput {
-    id: ID!
-}
-
-input CreatePostInput {
-    title: String!
-    content: String!
-    s3_image_object_key: String!
-}
-
-input UpdatePostInput {
-    id: ID!
-    title: String!
-    content: String!
-}
-
 type Mutation {
-    deletePost(id: ID!): DeletePostResponse
-    createPost(input: CreatePostInput!): Post!
-    updatePost(input: UpdatePostInput!): Post!
+  createComment(input: CreateCommentInput!): Comment!
+  updateComment(input: UpdateCommentInput!): Comment!
+  deleteComment(id: ID!): DeleteCommentResponse
+  createPost(input: CreatePostInput!): Post!
+  updatePost(input: UpdatePostInput!): Post!
+  deletePost(id: ID!): DeletePostResponse
 }
