@@ -53,6 +53,8 @@ const HalfShortPost: React.FC<PostProps> = ({ post }) => (
           width={500}
           height={500}
           className="absolute left-0 top-0 h-full w-full object-cover"
+          placeholder="blur"
+          blurDataURL='data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='
         />
       </div>
       <div>
