@@ -3,9 +3,10 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
-import Navbar from "@/components/Layout/Navbar/Navbar";
 import { UserProvider } from "@/contexts/UserContext/UserContext";
 import ApolloProvider from "@/graphql/utils/ApolloProvider";
+import {NextUIProvider} from '@nextui-org/react'
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,11 +25,13 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} flex flex-col h-lvh bg-white text-black`}>
-        <ApolloProvider>
-          <UserProvider>
-            {children}
-          </UserProvider>
-        </ApolloProvider>
+        <NextUIProvider>
+          <ApolloProvider>
+            <UserProvider>
+              {children}
+            </UserProvider>
+          </ApolloProvider>
+        </NextUIProvider>
         <ToastContainer />
       </body>
     </html>

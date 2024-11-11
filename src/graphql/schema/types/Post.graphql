@@ -1,27 +1,33 @@
 type Post {
-    id: ID!
-    user_id: ID!
-    title: String!
-    content: String!
-    s3_image_object_key: String!
-    created_at: String
-    updated_at: String
+  id: ID!
+  user_id: ID!
+  title: String!
+  content: String!
+  s3_image_object_key: String!
+  created_at: String
+  updated_at: String
+}
+
+type PostsResponse {
+  items: [Post!]!
+  total: Int!
+  pages: Int!
 }
 
 type DeletePostResponse {
-    status: Int
-    affectedRows: Int
+  status: Int
+  affectedRows: Int
 }
 
 input CreatePostInput {
-    title: String!
-    content: String!
-    s3_image_object_key: String!
+  title: String!
+  content: String!
+  s3_image_object_key: String!
 }
 
 input UpdatePostInput {
-    id: ID!
-    title: String!
-    content: String!
-    s3_image_object_key: String
+  id: ID!
+  title: String!
+  content: String!
+  s3_image_object_key: String
 }

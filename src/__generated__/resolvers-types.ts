@@ -55,7 +55,6 @@ export type Mutation = {
   createComment: Comment;
   createPost: Post;
   deleteComment?: Maybe<DeleteCommentResponse>;
-  deleteCommentInput?: Maybe<DeleteCommentResponse>;
   deletePost?: Maybe<DeletePostResponse>;
   updateComment: Comment;
   updatePost: Post;
@@ -73,11 +72,6 @@ export type MutationCreatePostArgs = {
 
 
 export type MutationDeleteCommentArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationDeleteCommentInputArgs = {
   id: Scalars['ID']['input'];
 };
 
@@ -107,11 +101,18 @@ export type Post = {
   user_id: Scalars['ID']['output'];
 };
 
+export type PostsResponse = {
+  __typename?: 'PostsResponse';
+  items: Array<Post>;
+  pages: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
+};
+
 export type Query = {
   __typename?: 'Query';
   comments?: Maybe<Array<Maybe<Comment>>>;
   post?: Maybe<Post>;
-  posts?: Maybe<Array<Post>>;
+  posts: PostsResponse;
   s3uploadUrl?: Maybe<Scalars['String']['output']>;
 };
 
@@ -123,6 +124,11 @@ export type QueryCommentsArgs = {
 
 export type QueryPostArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type QueryPostsArgs = {
+  page: Scalars['Int']['input'];
 };
 
 
@@ -224,6 +230,7 @@ export type ResolversTypes = ResolversObject<{
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   Post: ResolverTypeWrapper<Post>;
+  PostsResponse: ResolverTypeWrapper<PostsResponse>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   UpdateCommentInput: UpdateCommentInput;
@@ -242,6 +249,7 @@ export type ResolversParentTypes = ResolversObject<{
   Int: Scalars['Int']['output'];
   Mutation: {};
   Post: Post;
+  PostsResponse: PostsResponse;
   Query: {};
   String: Scalars['String']['output'];
   UpdateCommentInput: UpdateCommentInput;
@@ -274,7 +282,6 @@ export type MutationResolvers<ContextType = MyContext, ParentType extends Resolv
   createComment?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationCreateCommentArgs, 'input'>>;
   createPost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationCreatePostArgs, 'input'>>;
   deleteComment?: Resolver<Maybe<ResolversTypes['DeleteCommentResponse']>, ParentType, ContextType, RequireFields<MutationDeleteCommentArgs, 'id'>>;
-  deleteCommentInput?: Resolver<Maybe<ResolversTypes['DeleteCommentResponse']>, ParentType, ContextType, RequireFields<MutationDeleteCommentInputArgs, 'id'>>;
   deletePost?: Resolver<Maybe<ResolversTypes['DeletePostResponse']>, ParentType, ContextType, RequireFields<MutationDeletePostArgs, 'id'>>;
   updateComment?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationUpdateCommentArgs, 'input'>>;
   updatePost?: Resolver<ResolversTypes['Post'], ParentType, ContextType, RequireFields<MutationUpdatePostArgs, 'input'>>;
@@ -291,10 +298,17 @@ export type PostResolvers<ContextType = MyContext, ParentType extends ResolversP
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type PostsResponseResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['PostsResponse'] = ResolversParentTypes['PostsResponse']> = ResolversObject<{
+  items?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType>;
+  pages?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  total?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type QueryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   comments?: Resolver<Maybe<Array<Maybe<ResolversTypes['Comment']>>>, ParentType, ContextType, RequireFields<QueryCommentsArgs, 'postId'>>;
   post?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<QueryPostArgs, 'id'>>;
-  posts?: Resolver<Maybe<Array<ResolversTypes['Post']>>, ParentType, ContextType>;
+  posts?: Resolver<ResolversTypes['PostsResponse'], ParentType, ContextType, RequireFields<QueryPostsArgs, 'page'>>;
   s3uploadUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryS3uploadUrlArgs, 'objectKey'>>;
 }>;
 
@@ -304,6 +318,7 @@ export type Resolvers<ContextType = MyContext> = ResolversObject<{
   DeletePostResponse?: DeletePostResponseResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
+  PostsResponse?: PostsResponseResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 }>;
 

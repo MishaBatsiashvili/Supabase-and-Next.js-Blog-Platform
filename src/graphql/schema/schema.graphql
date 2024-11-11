@@ -3,16 +3,15 @@
 type Mutation {
   createComment(input: CreateCommentInput!): Comment!
   updateComment(input: UpdateCommentInput!): Comment!
-  deleteCommentInput(id: ID!): DeleteCommentResponse
+  deleteComment(id: ID!): DeleteCommentResponse
   createPost(input: CreatePostInput!): Post!
   updatePost(input: UpdatePostInput!): Post!
   deletePost(id: ID!): DeletePostResponse
-  deleteComment(id: ID!): DeleteCommentResponse
 }
 
 type Query {
   comments(postId: ID!): [Comment]
-  posts: [Post!]
+  posts(page: Int!): PostsResponse!
   post(id: ID!): Post
   s3uploadUrl(objectKey: String!): String
 }
@@ -49,6 +48,12 @@ type Post {
   s3_image_object_key: String!
   created_at: String
   updated_at: String
+}
+
+type PostsResponse {
+  items: [Post!]!
+  total: Int!
+  pages: Int!
 }
 
 type DeletePostResponse {

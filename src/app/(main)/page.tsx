@@ -2,7 +2,6 @@
 
 import AddNewPost from "@/components/AddNewPost/AddNewPost";
 import AllPosts from "@/components/Posts/AllPosts";
-import RecentPosts from "@/components/Posts/RecentPosts";
 import { createClient } from "@/utils/supabase/server";
 
 export default async function Page() {
@@ -16,15 +15,12 @@ export default async function Page() {
 
   return (
     <main>
-      {/* <User user={user} /> */}
-      
-      
-        <AddNewPost />
-      
-      {/* <RecentPosts user={user} /> */}
+      <AddNewPost />
       
       <div className="mt-6">
-        <AllPosts user={user} />
+        <AllPosts
+          user={user}
+        />
       </div>
 
     </main>
