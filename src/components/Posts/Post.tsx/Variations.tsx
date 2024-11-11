@@ -6,9 +6,6 @@ import { getS3ImageUrl } from '@/utils/helpers/getS3ImageUrl'
 import moment from 'moment'
 import { Skeleton } from '@nextui-org/react'
 
-const IMAGE =
-  'https://i.ytimg.com/vi/fAMfYPmyDbk/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAQIiql4o6GNn5BfsQMTzagf155VQ'
-
 type PostProps = {
   post: NonNullable<GetPostsQuery['posts']>[0]
   titleCharSize?: number
@@ -53,8 +50,7 @@ const HalfShortPost: React.FC<PostProps> = ({ post }) => (
           width={500}
           height={500}
           className="absolute left-0 top-0 h-full w-full object-cover"
-          placeholder="blur"
-          blurDataURL='data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='
+          priority
         />
       </div>
       <div>

@@ -4,10 +4,8 @@ import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
 import Comments from './components/Comments/Comments'
 import AddComment from './components/Comments/AddComment/AddComment'
-import Image from 'next/image'
-import { getS3ImageUrl } from '@/utils/helpers/getS3ImageUrl'
-import PostActions from './components/PostActions/PostActions'
 import PostView from './components/PostView/PostView'
+import AnimatePage from '@/components/common/animation/AnimatePage/AnimatePage'
 
 export default async function Page({ params }: { params: { id: string } }) {
   const supabase = createClient()
@@ -26,24 +24,23 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
 
   return (
-    <main className="mx-auto max-w-[600px]">
-      <Link href={'/'}>
-        <button className="rounded-md bg-gray-600 px-3 py-2 text-sm text-white">
-          Go to All Posts
-        </button>
-      </Link>
+    <AnimatePage>
+      <main className="mx-auto max-w-[600px]">
+        <Link href={'/'}>
+          <button className="rounded-md bg-gray-600 px-3 py-2 text-sm text-white">
+            Go to All Posts
+          </button>
+        </Link>
 
-      <PostView post={data.post} />
+        <PostView post={data.post} />
 
-      <div className="mx-auto max-w-[400px]">
-        <AddComment postId={data.post.id} />
-        <div className="mt-5">
-          <Comments postId={data.post.id} />
+        <div className="mx-auto max-w-[400px]">
+          <AddComment postId={data.post.id} />
+          <div className="mt-5">
+            <Comments postId={data.post.id} />
+          </div>
         </div>
-      </div>
-
-      
-      
-    </main>
+      </main>
+    </AnimatePage>
   )
 }

@@ -10,6 +10,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { GetPostsQuery } from '@/__generated__/graphql'
 import { HalfShortPostSkeleton } from './Post.tsx/Variations'
 import { toast } from 'react-toastify'
+import { motion } from 'framer-motion'
 
 const getPageNumber = (pageString: string | null) => {
   try {
@@ -79,9 +80,14 @@ const AllPosts: React.FC<{
     }
 
     return posts?.map((post) => (
-      <div key={post.id} className="col-span-1">
+      <motion.div initial={{
+        opacity: 0
+      }} animate={{
+        opacity: 1,
+        transition: { duration: 0.3 } 
+      }} key={post.id} className="col-span-1">
         <Post post={post} user={user} variant="halfShort" />
-      </div>
+      </motion.div>
     ))
   }
 
