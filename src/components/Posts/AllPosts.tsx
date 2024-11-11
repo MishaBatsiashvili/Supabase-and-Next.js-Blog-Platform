@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { GET_POSTS } from '@/graphql/client/queries/GET_POSTS'
 import Post from './Post.tsx/Post'
 import { User } from '@supabase/supabase-js'
@@ -30,7 +30,7 @@ const AllPosts: React.FC<{
   const searchParams = useSearchParams()
   const [page, setPage] = useState(getPageNumber(searchParams.get('page')))
   const [cachePosts, setCachedPosts] = useState<
-    GetPostsQuery['posts']['items']
+    GetPostsQuery['posts']['items'] | null
   >([])
   const [cachePages, setCachedPages] =
     useState<GetPostsQuery['posts']['pages']>(0)
@@ -49,7 +49,7 @@ const AllPosts: React.FC<{
 
   useEffect(() => {
     if (loading) {
-      setCachedPosts([])
+      setCachedPosts(null)
     } else {
       setCachedPosts(data?.posts.items ?? [])
     }
@@ -58,8 +58,18 @@ const AllPosts: React.FC<{
   const posts = cachePosts
   const pages = cachePages
 
+  const handlePageChange = useCallback(
+    (newPage: number) => {
+      setPage(newPage)
+      const newSearchParams = new URLSearchParams(searchParams.toString())
+      newSearchParams.set('page', newPage.toString())
+      router.push(`${pathname}?${newSearchParams.toString()}`)
+    },
+    [pathname, router, searchParams]
+  )
+
   const renderPosts = () => {
-    if (loading || !!error) {
+    if (loading) {
       return (
         <>
           <HalfShortPostSkeleton />
@@ -68,14 +78,14 @@ const AllPosts: React.FC<{
       )
     }
 
-    return posts.map((post) => (
+    return posts?.map((post) => (
       <div key={post.id} className="col-span-1">
         <Post post={post} user={user} variant="halfShort" />
       </div>
     ))
   }
 
-  if (posts?.length === 0 && !loading) {
+  if ((posts?.length === 0 && !loading) || !!error) {
     return (
       <div className="mt-24 flex justify-center">
         <Card className="px-5">
@@ -104,20 +114,16 @@ const AllPosts: React.FC<{
       <div className="grid grid-cols-1 gap-6">{renderPosts()}</div>
 
       <div className="flex justify-center py-14">
-        {pages ? (
+        {pages > 0 ? (
           <Pagination
             className="inline-block"
+            classNames={{
+              cursor: 'bg-black text-white',
+            }}
             showControls
             total={pages}
             initialPage={page}
-            onChange={(newPage) => {
-              setPage(newPage)
-              const newSearchParams = new URLSearchParams(
-                searchParams.toString()
-              )
-              newSearchParams.set('page', newPage.toString())
-              router.push(`${pathname}?${newSearchParams.toString()}`)
-            }}
+            onChange={handlePageChange}
           />
         ) : (
           <></>
