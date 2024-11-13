@@ -35,11 +35,11 @@ export const useS3Upload = () => {
             'Content-Type': file.type,
           },
         })
-        toast.success('File uploaded successfully')
+        toast.success('Image uploaded successfully')
         setFileIsUploading(false)
         return objectKey
       } catch (error) {
-        toast.error('File upload failed')
+        toast.error('Image upload failed')
       }
     }
 
@@ -49,6 +49,6 @@ export const useS3Upload = () => {
 
   return {
     handleS3FileUpload,
-    fileIsUploading,
+    loading: fileIsUploading || getS3UploadUrlIsLoading,
   }
 }

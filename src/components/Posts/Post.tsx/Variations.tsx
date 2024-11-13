@@ -42,8 +42,8 @@ const HalfPost: React.FC<PostProps> = ({ post }) => (
 
 const HalfShortPost: React.FC<PostProps> = ({ post }) => (
   <div className="relative rounded-lg">
-    <div className="left-0 top-0 grid h-full w-full grid-cols-1 gap-6 sm:grid-cols-2">
-      <div className="relative col-span-1 basis-6/12 pt-[50%]">
+    <div className="left-0 top-0 grid h-full w-full grid-cols-1 gap-6 sm:grid-cols-5">
+      <div className="relative col-span-2 basis-6/12 pt-[50%]">
         <Image
           src={getS3ImageUrl(post.s3_image_object_key)}
           alt="123"
@@ -53,7 +53,7 @@ const HalfShortPost: React.FC<PostProps> = ({ post }) => (
           priority
         />
       </div>
-      <div>
+      <div className='col-span-3'>
         <span className="text-xs text-violet-700">
           {moment(post.created_at).format('MMMM Do YYYY, h:mm:ss a')}
         </span>
@@ -71,9 +71,9 @@ const HalfShortPost: React.FC<PostProps> = ({ post }) => (
 const HalfShortPostSkeleton = () => {
   return (
     <div className="relative rounded-lg">
-      <div className="left-0 top-0 grid h-full w-full grid-cols-1 gap-6 sm:grid-cols-2">
-        <Skeleton className="relative col-span-1 basis-6/12 rounded-md pt-[50%]" />
-        <div>
+      <div className="left-0 top-0 grid h-full w-full grid-cols-2 gap-6 sm:grid-cols-5">
+        <Skeleton className="relative col-span-2 basis-6/12 rounded-md pt-[50%]" />
+        <div className='col-span-3'>
           <Skeleton className="w-1/3 rounded-md pt-2 text-lg font-bold truncate-multi-line-1" />
           <Skeleton className="mt-3 w-2/3 rounded-md pt-4 text-lg font-bold truncate-multi-line-1" />
           <Skeleton className="mt-3 w-4/5 rounded-md pt-16 text-sm text-gray-500 truncate-multi-line-3" />

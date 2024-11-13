@@ -8,6 +8,7 @@ import ApolloProvider from '@/graphql/utils/ApolloProvider'
 import { NextUIProvider } from '@nextui-org/react'
 import { AnimatePresence } from 'framer-motion'
 import { motion } from 'framer-motion'
+import { LayoutTransition } from '@/components/common/animation/LayoutTransition/LayoutTransition'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -28,7 +29,15 @@ export default async function RootLayout({
       >
         <NextUIProvider>
           <ApolloProvider>
-            <UserProvider>{children}</UserProvider>
+            <UserProvider>
+              <LayoutTransition
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0, transition: { duration: 0.3 } }}
+                exit={{ opacity: 0, x: 50, transition: { duration: 0.3 } }}
+              >
+                {children}
+              </LayoutTransition>
+            </UserProvider>
           </ApolloProvider>
         </NextUIProvider>
         <ToastContainer />
