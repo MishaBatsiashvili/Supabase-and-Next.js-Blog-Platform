@@ -39,19 +39,34 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (request.url.includes('/api/graphql')) {
+  console.log('USER!!!!!!!!!',user)
+
+  if (!user && request.url.includes('/api/s3image-upload-url')) {
+    // return redirectTo(request, '/')
     return response
   }
 
-  if (user && request.url.includes('/api/s3image-upload-url')) {
+  if (!user && request.url.includes('/user/posts')) {
+    return redirectTo(request, '/login')
+  }
+
+  if (!user && request.nextUrl.pathname.startsWith('/analytics')) {
+    return redirectTo(request, '/')
+  }
+
+  if (!user && request.nextUrl.pathname.startsWith('/api/analytics')) {
     return response
   }
 
   // if (!user && !request.nextUrl.pathname.startsWith('/auth')) {
-  //   return redirectTo(request, '/auth/login')
+  //   return redirectTo(request, '/login')
   // }
 
-  if (user && request.nextUrl.pathname.startsWith('/auth')) {
+  if (
+    user &&
+    (request.nextUrl.pathname.startsWith('/login') ||
+      request.nextUrl.pathname.startsWith('/signup  '))
+  ) {
     return redirectTo(request, '/')
   }
 

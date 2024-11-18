@@ -1,6 +1,7 @@
 import { nextui } from '@nextui-org/react';
 import type { Config } from "tailwindcss";
-import { PluginAPI } from "tailwindcss/types/config";
+import resolveConfig from 'tailwindcss/resolveConfig';
+import { PluginAPI, RecursiveKeyValuePair, ResolvableTo } from "tailwindcss/types/config";
 
 const config: Config = {
   content: [
@@ -36,4 +37,7 @@ const config: Config = {
     },
   ],
 };
+
 export default config;
+
+export const resolvedConfig = resolveConfig(config)

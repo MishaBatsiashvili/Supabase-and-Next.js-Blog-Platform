@@ -6,10 +6,9 @@ import { ToastContainer } from 'react-toastify'
 import { UserProvider } from '@/contexts/UserContext/UserContext'
 import ApolloProvider from '@/graphql/utils/ApolloProvider'
 import { NextUIProvider } from '@nextui-org/react'
-import { AnimatePresence } from 'framer-motion'
-import { motion } from 'framer-motion'
 import { LayoutTransition } from '@/components/common/animation/LayoutTransition/LayoutTransition'
-
+import NextTopLoader from 'nextjs-toploader'
+import { resolvedConfig } from '../../tailwind.config'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -24,16 +23,16 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} flex h-lvh flex-col bg-white text-black`}
-      >
-        <NextUIProvider>
+      <body className={`${inter.className} flex-col bg-white text-black`}>
+        <NextTopLoader color={resolvedConfig.theme.colors.violet[500]} />
+        <NextUIProvider className="h-lvh">
           <ApolloProvider>
             <UserProvider>
               <LayoutTransition
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0, transition: { duration: 0.3 } }}
                 exit={{ opacity: 0, x: 50, transition: { duration: 0.3 } }}
+                className="h-full w-full"
               >
                 {children}
               </LayoutTransition>

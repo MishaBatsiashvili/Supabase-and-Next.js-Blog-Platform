@@ -5,6 +5,7 @@ import { useMutation } from '@apollo/client'
 import { GET_POSTS } from '@/graphql/client/queries/GET_POSTS'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
+import { AnimatePresence, motion } from 'framer-motion'
 
 const DeleteAction: React.FC<{
   postId: string
@@ -35,42 +36,63 @@ const DeleteAction: React.FC<{
       >
         Delete Post
       </button>
-      {deleteModalIsVisible && (
-        <Portal.Root>
-          <div className='fixed top-0 left-0 z-[999]'>
-            <div
-              className="fixed block h-full w-full bg-black opacity-60"
-              onClick={() => setDeleteModalIsVisible(false)}
-            />
-            <div className="fixed left-1/2 top-1/2 m-3 block w-1/2 max-w-[500px] translate-x-[-50%] translate-y-[-50%] rounded-md bg-white p-6 text-black">
-              <h1 className="text-center text-lg font-bold">Are you sure?</h1>
-              <hr className="border-top my-3 w-full border-gray-400" />
-              <div className="flex gap-2">
-                <button
-                  disabled={deletePostIsLoading}
-                  className="flex-grow rounded-md bg-red-600 py-2 text-sm text-white"
-                  onClick={() => {
-                    deletePost({
-                      variables: {
-                        id: postId,
-                      },
-                    })
+      <Portal.Root>
+        <AnimatePresence mode="wait">
+          {deleteModalIsVisible && (
+            <motion.div
+              className="fixed left-0 top-0 z-[999] h-full w-full"
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: 1,
+              }}
+              exit={{ opacity: 0, transition: { delay: 0.3 } }}
+            >
+              <div
+                className="fixed block h-full w-full bg-black opacity-60"
+                onClick={() => setDeleteModalIsVisible(false)}
+              />
+              <div className="fixed left-1/2 top-1/2 block w-full max-w-[500px] translate-x-[-50%] translate-y-[-50%] px-3 text-black">
+                <motion.div
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{
+                    scale: 1,
+                    opacity: 1,
                   }}
+                  exit={{ scale: 0.9, opacity: 0 }}
+                  className="rounded-md bg-white p-6"
                 >
-                  Delete
-                </button>
-                <button
-                  disabled={deletePostIsLoading}
-                  className="flex-grow rounded-md bg-gray-600 py-2 text-sm text-white"
-                  onClick={() => setDeleteModalIsVisible(false)}
-                >
-                  No
-                </button>
+                  <h1 className="text-center text-lg font-bold">
+                    Are you sure?
+                  </h1>
+                  <hr className="border-top my-3 w-full border-gray-400" />
+                  <div className="flex gap-2">
+                    <button
+                      disabled={deletePostIsLoading}
+                      className="flex-grow rounded-md bg-red-600 py-2 text-sm text-white"
+                      onClick={() => {
+                        deletePost({
+                          variables: {
+                            id: postId,
+                          },
+                        })
+                      }}
+                    >
+                      Delete
+                    </button>
+                    <button
+                      disabled={deletePostIsLoading}
+                      className="flex-grow rounded-md bg-gray-600 py-2 text-sm text-white"
+                      onClick={() => setDeleteModalIsVisible(false)}
+                    >
+                      No
+                    </button>
+                  </div>
+                </motion.div>
               </div>
-            </div>
-          </div>
-        </Portal.Root>
-      )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </Portal.Root>
     </>
   )
 }

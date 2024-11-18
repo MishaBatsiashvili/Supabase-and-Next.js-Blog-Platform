@@ -20,7 +20,7 @@ const Navbar: React.FC = () => {
   const renderUser = () => {
     if (!user) {
       return (
-        <Link href={'/auth/login'} className="block">
+        <Link href={'/login'} className="block">
           <button className="rounded-md bg-black px-5 py-1.5 text-sm text-white">
             Sign In
           </button>
@@ -45,6 +45,11 @@ const Navbar: React.FC = () => {
             >
               Sign Out
             </button>
+            <Link href={'/analytics'} className="block mt-1">
+              <button className="w-full rounded-md bg-black px-3 py-2 text-sm text-white">
+                Analytics
+              </button>
+            </Link>
           </div>
         </PopoverContent>
       </Popover>
@@ -74,29 +79,12 @@ const Navbar: React.FC = () => {
         key={'navbar'}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mx-auto my-8 flex w-full max-w-screen-lg items-center justify-between rounded-md border border-gray-300 px-3 py-3"
+        className="mx-auto my-8 block w-full max-w-screen-lg items-center justify-between rounded-md border border-gray-300 px-3 py-3 md:flex"
       >
         {renderUser()}
-        <div className="flex-grow px-6">
+        <div className="mt-3 flex-grow md:mt-0 md:px-6">
           <Search />
         </div>
-
-        {/* <div className="text-sm">
-          <Link href="/" className="mr-3">
-            Home
-          </Link>
-          <Link href="/blog" className="mr-3">
-            Blog
-          </Link>
-          <Link href="/newsletter" className="mr-3">
-            My Posts
-          </Link>
-          <Link href="/about" className="mr-3">
-            About
-          </Link>
-
-          <input type="checkbox" name="isDarkMode" />
-        </div> */}
       </motion.div>
     )
   }

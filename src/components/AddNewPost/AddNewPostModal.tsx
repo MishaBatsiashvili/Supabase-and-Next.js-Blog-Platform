@@ -16,7 +16,6 @@ const AddNewPostModal: React.FC<{
   modalIsOpen: boolean
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }> = ({ modalIsOpen, setModalIsOpen }) => {
-
   const router = useRouter()
 
   const {
@@ -30,25 +29,26 @@ const AddNewPostModal: React.FC<{
 
   const { handleS3FileUpload, loading: s3Loading } = useS3Upload()
   const client = useApolloClient()
-  const [createPost, { loading, called, reset: resetCreatePostMutation }] = useMutation(CREATE_POST, {
-    onError: () => toast.error('Error creating post'),
-    onCompleted: () => {
-      toast.success('Post created')
-      setModalIsOpen(false)
-      try {
-        client.cache.evict({
-          id: 'ROOT_QUERY',
-          fieldName: 'posts',
-        })
-        console.log('GET_POSTS cache cleared successfully.')
-      } catch (error) {
-        console.error('Error clearing GET_POSTS cache:', error)
-      }
+  const [createPost, { loading, called, reset: resetCreatePostMutation }] =
+    useMutation(CREATE_POST, {
+      onError: () => toast.error('Error creating post'),
+      onCompleted: () => {
+        toast.success('Post created')
+        setModalIsOpen(false)
+        try {
+          client.cache.evict({
+            id: 'ROOT_QUERY',
+            fieldName: 'posts',
+          })
+          console.log('GET_POSTS cache cleared successfully.')
+        } catch (error) {
+          console.error('Error clearing GET_POSTS cache:', error)
+        }
 
-      router.push('/?page=1')
-      resetCreatePostMutation()
-    },
-  })
+        router.push('/?page=1')
+        resetCreatePostMutation()
+      },
+    })
 
   const isLoading = loading || s3Loading
 
@@ -84,8 +84,10 @@ const AddNewPostModal: React.FC<{
             <motion.div
               className="fixed left-0 top-0 z-[999] h-full w-full"
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1, transition: { duration: 0.2 } }}
-              exit={{ opacity: 0 }}
+              animate={{
+                opacity: 1,
+              }}
+              exit={{ opacity: 0, transition: { delay: 0.3 } }}
             >
               <div
                 className="fixed block h-full w-full bg-black opacity-60"
@@ -96,10 +98,13 @@ const AddNewPostModal: React.FC<{
                 }}
               />
 
-              <div className="fixed left-1/2 top-1/2 m-3 block w-1/2 max-w-[500px] translate-x-[-50%] translate-y-[-50%] text-black">
+              <div className="fixed left-1/2 top-1/2 block w-full max-w-[500px] translate-x-[-50%] translate-y-[-50%] px-3 text-black">
                 <motion.div
                   initial={{ scale: 0.9, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1, transition: { delay: 0.1 } }}
+                  animate={{
+                    scale: 1,
+                    opacity: 1,
+                  }}
                   exit={{ scale: 0.9, opacity: 0 }}
                   className="rounded-md bg-white p-6"
                 >

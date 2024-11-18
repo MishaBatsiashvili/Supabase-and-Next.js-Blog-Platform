@@ -5,10 +5,11 @@ import Link from 'next/link'
 import Comments from './components/Comments/Comments'
 import AddComment from './components/Comments/AddComment/AddComment'
 import PostView from './components/PostView/PostView'
+import { headers } from 'next/headers'
 
 export default async function Page({ params }: { params: { id: string } }) {
   const client = createApolloClient()
-  const { data, error } = await client.query({
+  const { data } = await client.query({
     query: GET_POST,
     variables: { id: params.id },
   })
@@ -18,20 +19,16 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
 
   return (
-    <main className="mx-auto max-w-[600px]">
-      <Link href={'/'}>
-        <button className="rounded-md bg-gray-600 px-3 py-2 text-sm text-white">
-          Go to All Posts
-        </button>
-      </Link>
+    <main>
+      <div className="mx-auto max-w-[600px]">
+          <PostView post={data.post} />
 
-      <PostView post={data.post} />
-
-      <div className="mx-auto max-w-[400px]">
-        <AddComment postId={data.post.id} />
-        <div className="mt-5">
-          <Comments postId={data.post.id} />
-        </div>
+          <div className="mx-auto max-w-[400px]">
+            <AddComment postId={data.post.id} />
+            <div className="mt-5">
+              <Comments postId={data.post.id} />
+            </div>
+          </div>
       </div>
     </main>
   )

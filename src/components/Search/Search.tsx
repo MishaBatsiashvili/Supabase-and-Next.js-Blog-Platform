@@ -3,10 +3,11 @@ import 'instantsearch.css/themes/satellite.css'
 import { Hits, InstantSearch, SearchBox, Configure } from 'react-instantsearch'
 import { Hit } from './Hit/Hit'
 import { useState, useEffect, useRef } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 
 const searchClient = algoliasearch(
-  'W0CLLV2GZS',
-  '14c838a829dfc946ee5349d88c07c78e'
+  process.env.NEXT_PUBLIC_ALGOLIA_APP_ID!,
+  process.env.NEXT_PUBLIC_ALGOLIA_API_KEY!
 )
 
 export const Search = () => {
@@ -41,15 +42,27 @@ export const Search = () => {
           className="py-0"
         />
         <div className="relative w-full">
-          {searchIsActive && (
-            <div className="absolute left-0 top-0 z-[999] w-full">
-              <Hits
-                hitComponent={({ hit }) => (
-                  <Hit hit={hit} setSearchIsActive={setSearchIsActive} />
-                )}
-              />
-            </div>
-          )}
+          <AnimatePresence mode="wait">
+            {searchIsActive && (
+              <motion.div
+                initial={{ opacity: 0, y: -20, scale: 0.7 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  scale: 1
+                }}
+                exit={{ opacity: 0 }}
+                key={'search-hits'}
+                className="absolute left-0 top-0 z-[999] w-full"
+              >
+                <Hits
+                  hitComponent={({ hit }) => (
+                    <Hit hit={hit} setSearchIsActive={setSearchIsActive} />
+                  )}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </InstantSearch>

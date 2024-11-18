@@ -1,21 +1,21 @@
-"use client";
+'use client'
 
-import { createClient } from "@/utils/supabase/client";
-import { User as UserType } from "@supabase/supabase-js";
-import { useRouter } from "next/navigation";
+import { createClient } from '@/utils/supabase/client'
+import { User as UserType } from '@supabase/supabase-js'
+import { useRouter } from 'next/navigation'
 
 const User: React.FC<{
-  user: UserType;
+  user: UserType
 }> = ({ user }) => {
-  const router = useRouter();
+  const router = useRouter()
 
   const signOut = async () => {
-    const supabase = createClient();
-    const resp = await supabase.auth.signOut();
+    const supabase = createClient()
+    const resp = await supabase.auth.signOut()
     if (!resp.error) {
-      router.push("/auth/login");
+      router.push('/login')
     }
-  };
+  }
 
   return (
     <div className="text-center">
@@ -24,7 +24,7 @@ const User: React.FC<{
         Sign Out
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default User;
+export default User

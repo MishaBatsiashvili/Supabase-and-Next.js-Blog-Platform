@@ -22,7 +22,7 @@ const HalfPost: React.FC<PostProps> = ({ post }) => (
           alt="123"
           width={500}
           height={500}
-          className="absolute left-0 top-0 h-full w-full object-cover"
+          className="absolute left-0 top-0 h-full w-full object-cover rounded-md"
         />
       </div>
       <div className="basis-6/12 pt-6">
@@ -49,7 +49,7 @@ const HalfShortPost: React.FC<PostProps> = ({ post }) => (
           alt="123"
           width={500}
           height={500}
-          className="absolute left-0 top-0 h-full w-full object-cover"
+          className="absolute left-0 top-0 h-full w-full object-cover rounded-md"
           priority
         />
       </div>

@@ -10,7 +10,7 @@ export default async function RootLayout({
   return (
     <div className="px-5">
       <Navbar />
-      <div className="mx-auto w-full max-w-screen-lg flex-1 overflow-x-hidden">
+      <div className="mx-auto w-full max-w-screen-lg flex-1">
         <LayoutTransition
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0, transition: { duration: 0.3 } }}

@@ -21,7 +21,7 @@ const documents = {
     "\n    mutation updatePost($input: UpdatePostInput!) {\n        updatePost(input: $input){\n            id\n        }\n    }\n": types.UpdatePostDocument,
     "\nquery GetComments($postId: ID!) {\n    comments(postId: $postId) {\n      id\n      comment\n      post_id\n      user_id\n      created_at\n      updated_at\n    }\n  }\n": types.GetCommentsDocument,
     "\n query getPost($id: ID!) {\n    post(id: $id) {\n        id\n        title,\n        content,\n        user_id,\n        s3_image_object_key\n    }\n }\n": types.GetPostDocument,
-    "\n query getPosts($page: Int!) {\n    posts(page: $page) {\n        items {\n            id\n            title,\n            content,\n            user_id,\n            s3_image_object_key,\n            created_at,\n            updated_at\n        }\n        total\n        pages\n    }\n }\n": types.GetPostsDocument,
+    "\n query getPosts($page: Int!, $userId: ID) {\n    posts(page: $page, userId: $userId) {\n        items {\n            id\n            title,\n            content,\n            user_id,\n            s3_image_object_key,\n            created_at,\n            updated_at\n        }\n        total\n        pages\n    }\n }\n": types.GetPostsDocument,
     "\n query getS3uploadUrl($objectKey: String!) {\n  s3uploadUrl(objectKey: $objectKey)\n }\n": types.GetS3uploadUrlDocument,
 };
 
@@ -74,7 +74,7 @@ export function gql(source: "\n query getPost($id: ID!) {\n    post(id: $id) {\n
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n query getPosts($page: Int!) {\n    posts(page: $page) {\n        items {\n            id\n            title,\n            content,\n            user_id,\n            s3_image_object_key,\n            created_at,\n            updated_at\n        }\n        total\n        pages\n    }\n }\n"): (typeof documents)["\n query getPosts($page: Int!) {\n    posts(page: $page) {\n        items {\n            id\n            title,\n            content,\n            user_id,\n            s3_image_object_key,\n            created_at,\n            updated_at\n        }\n        total\n        pages\n    }\n }\n"];
+export function gql(source: "\n query getPosts($page: Int!, $userId: ID) {\n    posts(page: $page, userId: $userId) {\n        items {\n            id\n            title,\n            content,\n            user_id,\n            s3_image_object_key,\n            created_at,\n            updated_at\n        }\n        total\n        pages\n    }\n }\n"): (typeof documents)["\n query getPosts($page: Int!, $userId: ID) {\n    posts(page: $page, userId: $userId) {\n        items {\n            id\n            title,\n            content,\n            user_id,\n            s3_image_object_key,\n            created_at,\n            updated_at\n        }\n        total\n        pages\n    }\n }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

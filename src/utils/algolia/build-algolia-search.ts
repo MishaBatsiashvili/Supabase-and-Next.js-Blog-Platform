@@ -2,8 +2,8 @@ import { getS3ImageUrl } from '@/utils/helpers/getS3ImageUrl'
 import { createClient } from '@/utils/supabase/client'
 import { searchClient } from '@algolia/client-search'
 
-const APP_ID = process.env.ALGOLIA_APP_ID!
-const API_KEY = process.env.ALGOLIA_API_KEY!
+const APP_ID = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID!
+const API_KEY = process.env.NEXT_PUBLIC_ALGOLIA_API_KEY!
 const client = searchClient(APP_ID, API_KEY)
 
 // Fetch and index objects in Algolia

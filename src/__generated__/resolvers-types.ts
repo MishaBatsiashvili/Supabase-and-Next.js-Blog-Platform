@@ -129,6 +129,7 @@ export type QueryPostArgs = {
 
 export type QueryPostsArgs = {
   page: Scalars['Int']['input'];
+  userId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 

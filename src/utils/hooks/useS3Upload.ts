@@ -35,7 +35,6 @@ export const useS3Upload = () => {
             'Content-Type': file.type,
           },
         })
-        toast.success('Image uploaded successfully')
         setFileIsUploading(false)
         return objectKey
       } catch (error) {

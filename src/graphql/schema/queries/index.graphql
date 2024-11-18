@@ -1,6 +1,6 @@
 type Query {
   comments(postId: ID!): [Comment]
-  posts(page: Int!): PostsResponse!
+  posts(page: Int!, userId: ID): PostsResponse!
   post(id: ID!): Post
   s3uploadUrl(objectKey: String!): String
 }

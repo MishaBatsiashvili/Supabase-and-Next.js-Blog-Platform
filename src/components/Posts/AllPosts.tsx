@@ -30,9 +30,6 @@ const AllPosts: React.FC<{}> = () => {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [page, setPage] = useState(getPageNumber(searchParams.get('page')))
-  const [cachePosts, setCachedPosts] = useState<
-    GetPostsQuery['posts']['items'] | null
-  >(null)
   const [cachePages, setCachedPages] =
     useState<GetPostsQuery['posts']['pages']>(0)
 
@@ -50,7 +47,7 @@ const AllPosts: React.FC<{}> = () => {
     fetchPolicy: 'network-only'
   })
 
-  const posts = cachePosts
+  const posts = data?.posts.items
   const pages = cachePages
 
   const handlePageChange = (newPage: number) => {
@@ -68,14 +65,6 @@ const AllPosts: React.FC<{}> = () => {
     }
   }, [searchParams])
 
-  useEffect(() => {
-    if (loading) {
-      setCachedPosts(null)
-    } else {
-      setCachedPosts(data?.posts.items ?? [])
-    }
-  }, [data, loading])
-
   const renderPosts = () => {
     if (loading) {
       return (
@@ -90,6 +79,10 @@ const AllPosts: React.FC<{}> = () => {
           <HalfShortPostSkeleton />
         </motion.div>
       )
+    }
+
+    if(posts?.length === 0){
+      return <>No Posts</>
     }
 
     return (

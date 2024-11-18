@@ -95,6 +95,7 @@ export type Database = {
           email: string | null
           full_name: string | null
           id: string
+          role_id: number | null
           updated_at: string | null
           username: string | null
         }
@@ -103,6 +104,7 @@ export type Database = {
           email?: string | null
           full_name?: string | null
           id: string
+          role_id?: number | null
           updated_at?: string | null
           username?: string | null
         }
@@ -111,8 +113,32 @@ export type Database = {
           email?: string | null
           full_name?: string | null
           id?: string
+          role_id?: number | null
           updated_at?: string | null
           username?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_role_id_fkey"
+            columns: ["role_id"]
+            isOneToOne: false
+            referencedRelation: "roles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      roles: {
+        Row: {
+          id: number
+          role: string
+        }
+        Insert: {
+          id?: number
+          role?: string
+        }
+        Update: {
+          id?: number
+          role?: string
         }
         Relationships: []
       }
