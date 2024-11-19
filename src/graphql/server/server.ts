@@ -15,6 +15,7 @@ import path from 'path'
 
 const typeDefs = loadFilesSync(path.join(process.cwd(), 'src/graphql/schema/**/*.graphql'));
 
+console.log('loadFilesSync path', path.join(process.cwd(), 'src/graphql/schema/**/*.graphql'))
 
 const resolvers: Resolvers = {
   Query: {
@@ -33,7 +34,8 @@ const resolvers: Resolvers = {
   },
 }
 
-// console.log(resolvers, typeDefs)
+console.log('resolvers', resolvers)
+console.log('typeDefs', typeDefs)
 
 // server setup
 export const apolloServer = new ApolloServer({
