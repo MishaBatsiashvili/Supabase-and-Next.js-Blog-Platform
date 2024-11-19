@@ -74,7 +74,7 @@ const AllPosts: React.FC<{}> = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="grid gap-6"
+          className="grid md:gap-6"
         >
           <HalfShortPostSkeleton />
           <HalfShortPostSkeleton />
