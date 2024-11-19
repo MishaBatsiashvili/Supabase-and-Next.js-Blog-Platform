@@ -23,12 +23,16 @@ export default async function Page({ params }: { params: { id: string } }) {
       <div className="mx-auto max-w-[600px]">
         <PostView post={data.post} />
 
-        <div className="mx-auto max-w-[400px]">
-          <AddComment postId={data.post.id} />
-          <div className="mt-5">
-            {user.data.user ? <Comments postId={data.post.id} /> : <></>}
+        {user.data.user ? (
+          <div className="mx-auto max-w-[400px]">
+            <AddComment postId={data.post.id} />
+            <div className="mt-5">
+              <Comments postId={data.post.id} />
+            </div>
           </div>
-        </div>
+        ) : (
+          <></>
+        )}
       </div>
     </main>
   )
