@@ -38,7 +38,7 @@ const HalfPost: React.FC<PostProps> = ({ post }) => (
 
 const HalfShortPost: React.FC<PostProps> = ({ post }) => (
   <div className="relative rounded-lg">
-    <div className="left-0 top-0 grid h-full w-full grid-cols-1 gap-6 sm:grid-cols-5">
+    <div className="left-0 top-0 grid h-full w-full grid-cols-1 md:gap-6 sm:grid-cols-5">
       <div className="relative col-span-2 basis-6/12 pt-[50%]">
         <Image
           src={getS3ImageUrl(post.s3_image_object_key)}
