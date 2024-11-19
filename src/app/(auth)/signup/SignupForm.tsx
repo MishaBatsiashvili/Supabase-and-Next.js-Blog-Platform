@@ -85,7 +85,7 @@ const SignupForm = () => {
               href={'/login'}
               className="block flex-grow rounded-md bg-gray-500 p-2 text-center text-sm text-white"
             >
-              Log In
+              Go to <b>Log In</b>
             </Link>
           </div>
         </div>

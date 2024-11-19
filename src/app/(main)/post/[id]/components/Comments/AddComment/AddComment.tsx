@@ -19,7 +19,7 @@ const AddComment: React.FC<{
   postId: string
 }> = ({ postId }) => {
   const [createComment, { loading }] = useMutation(CREATE_COMMENT, {
-    onError: () => toast.error('Error creating post'),
+    onError: () => toast.error('Error creating comment'),
     onCompleted: () => {
       toast.success('Comment created')
     },
@@ -59,7 +59,7 @@ const AddComment: React.FC<{
       <FieldErrorItem className="mt-1 text-xs" error={errors['comment']} />
       <textarea
         {...register('comment')}
-        className="mt-1 w-full rounded border border-slate-400 p-4 text-sm disabled:bg-slate-200"
+        className="mt-1 w-full rounded border border-slate-400 p-4 disabled:bg-slate-200"
         placeholder="Write comment"
       />
       <button className="w-full rounded-md bg-black px-4 py-2 text-sm text-white disabled:opacity-80">

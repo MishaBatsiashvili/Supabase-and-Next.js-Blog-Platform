@@ -99,6 +99,9 @@ export const useUser = () => {
     }
 
     toast.success(`${email} Signed Up`)
+
+    router.replace('/')
+    router.refresh()
   }
 
   if (context === undefined) {
