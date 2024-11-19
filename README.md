@@ -14,7 +14,7 @@ This project is a modern blogging platform enriched with real-time features, sec
 - **Algolia** for blog post search functionality
 
 ## Demo
-Project is hosted on: https://amazon.com
+Project is hosted on: https://supabase-and-next-js-blog-platform-lal7.vercel.app
 
 ### UI & Styling
 
