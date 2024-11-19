@@ -1,4 +1,4 @@
-# Supabase and Next.js Blog Platform
+# Blog Platform ( Next.js, Supabase, GraphQL, AWS )
 
 Welcome to my Supabase and Next.js blog platform project! This README will guide you through the architecture, features, and challenges tackled during the development of this full-stack application.
 
