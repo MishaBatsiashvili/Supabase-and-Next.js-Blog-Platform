@@ -11,6 +11,7 @@ import { deleteCommentResolver } from './resolvers/comment/deleteComment'
 import { createPostResolver } from './resolvers/post/createPost'
 import { updatePostResolver } from './resolvers/post/updatePost'
 import { deletePostResolver } from './resolvers/post/deletePost'
+import { resolve } from 'path'
 
 const typeDefs = loadFilesSync('src/graphql/schema/**/*.graphql')
 
@@ -31,8 +32,12 @@ const resolvers: Resolvers = {
   },
 }
 
+console.log(resolvers,typeDefs)
+
 // server setup
 export const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
 })
+
+console.log('apolloServer', apolloServer)
