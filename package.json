@@ -9,7 +9,7 @@
     "generate-schema": "dotenv -e .env.local -- sh -c 'npx supabase gen types --lang=typescript --project-id $PROJECT_REF --schema public > ./src/database.schema.ts --debug'",
     "dev": "concurrently -c \"red,green,blue\" -n \"graphql-ts,supabse-ts,next dev\" \"npm run graphql-typegen-watch\" \"npm run generate-schema\" \"next dev\"",
     "next:dev": "next dev",
-    "build": "next build",
+    "build": "npm run graphql-typegen && npm run generate-schema && next build",
     "start": "next start",
     "lint": "next lint",
     "algolia:build": "dotenv -e .env.local -- sh -c 'tsx src/lib/build-algolia-search.ts'",
