@@ -22,7 +22,6 @@ export function LayoutTransition({
 }: LayoutTransitionProps) {
   const segment = useSelectedLayoutSegment();
 
-  console.log(segment)
  
   return (
     <AnimatePresence mode="wait">

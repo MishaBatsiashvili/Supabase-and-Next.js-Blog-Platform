@@ -33,6 +33,5 @@ export async function GET(request: Request) {
   }
 
   const url = await generatePresignedUrl(BUCKET_NAME, objectKey)
-  console.log('url!!!!!!', url)
   return Response.json({ url: url })
 }

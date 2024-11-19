@@ -53,7 +53,6 @@ const AddNewPostModal: React.FC<{
   const isLoading = loading || s3Loading
 
   useEffect(() => {
-    console.log(isLoading, loading, s3Loading)
     if (isLoading && !called) {
       toast.info('Uploading Post')
     }

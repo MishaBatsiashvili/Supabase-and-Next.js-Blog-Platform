@@ -10,8 +10,6 @@ const UsersChart: React.FC<{
   const chartRef = useRef<HTMLCanvasElement | null>(null)
   const [chartInstance, setChartInstance] = useState<Chart | null>(null)
 
-  console.log(Items)
-
   useEffect(() => {
     const getLast30DaysLabels = () => {
       const labels = []
@@ -52,6 +50,7 @@ const UsersChart: React.FC<{
         ],
       },
       options: {
+        responsive: true,
         scales: {
           y: {
             beginAtZero: true,

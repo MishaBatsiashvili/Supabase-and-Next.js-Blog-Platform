@@ -39,8 +39,6 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  console.log('USER!!!!!!!!!',user)
-
   if (!user && request.url.includes('/api/s3image-upload-url')) {
     // return redirectTo(request, '/')
     return response
