@@ -88,7 +88,7 @@ export const useUser = () => {
       return
     }
 
-    const { error: signUpError } = await createClient().auth.signUp({
+    const { data, error: signUpError } = await createClient().auth.signUp({
       email,
       password,
     })
@@ -100,6 +100,7 @@ export const useUser = () => {
 
     toast.success(`${email} Signed Up`)
 
+    context?.setUser(data.user)
     router.replace('/')
     router.refresh()
   }
