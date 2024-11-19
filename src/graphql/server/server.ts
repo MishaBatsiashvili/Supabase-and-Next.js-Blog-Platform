@@ -11,11 +11,8 @@ import { deleteCommentResolver } from './resolvers/comment/deleteComment'
 import { createPostResolver } from './resolvers/post/createPost'
 import { updatePostResolver } from './resolvers/post/updatePost'
 import { deletePostResolver } from './resolvers/post/deletePost'
-import path from 'path'
 
-const typeDefs = loadFilesSync(path.join(process.cwd(), 'src/graphql/schema/**/*.graphql'));
-
-console.log('loadFilesSync path', path.join(process.cwd(), 'src/graphql/schema/**/*.graphql'))
+const typeDefs = loadFilesSync('**/schema.graphql')
 
 const resolvers: Resolvers = {
   Query: {
