@@ -57,6 +57,7 @@ export const useUser = () => {
       return
     }
 
+    router.refresh()
     router.replace('/login')
     context?.setUser(null)
   }
