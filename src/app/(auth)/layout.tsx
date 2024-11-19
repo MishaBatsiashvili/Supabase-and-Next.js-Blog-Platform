@@ -1,6 +1,8 @@
 import { LayoutTransition } from '@/components/common/animation/LayoutTransition/LayoutTransition'
+import Navbar from '@/components/Layout/Navbar/Navbar'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -20,7 +22,14 @@ export default async function RootLayout({
         exit={{ opacity: 0, x: 50, transition: { duration: 0.3 } }}
         className="h-full w-full"
       >
-        <main className="h-full items-center justify-center flex">{children}</main>
+        <main className="flex flex-col h-full items-center justify-center">
+          <Link href="/" className='block mb-5'>
+            <button className="bg-black px-3 py-2 text-sm text-white rounded-md">
+              Go Home
+            </button>
+          </Link>
+          {children}
+        </main>
       </LayoutTransition>
     </div>
   )

@@ -44,7 +44,7 @@ const LoginForm = () => {
   }
 
   return (
-    <div className="my-auto w-full p-3">
+    <div className="w-full p-3">
       <form
         className="w-full rounded-md border border-gray-300 bg-white p-7"
         method="post"
