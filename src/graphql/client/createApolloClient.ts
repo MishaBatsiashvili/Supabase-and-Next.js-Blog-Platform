@@ -1,5 +1,4 @@
-import { ApolloClient, HttpLink, InMemoryCache, createHttpLink } from '@apollo/client';
-import fetch from 'cross-fetch';
+import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { headers } from 'next/headers';
 
 const createApolloClient = () => {
@@ -15,7 +14,7 @@ const createApolloClient = () => {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',  // Disables force-fetching on the server (so queries are only run once)
     link: createHttpLink({
-      uri: 'http://localhost:3000/api/graphql',
+      uri: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/graphql`,
       credentials: 'same-origin',
       headers: {
         cookie: getCookieHeader(),
