@@ -22,3 +22,5 @@ export default async function RootLayout({
     </div>
   )
 }
+
+export const dynamic = "force-dynamic";
