@@ -14,7 +14,7 @@ export type PostsItem = {
   resource_id: string
 }
 
-export async function handler(request: Request) {
+async function handler(request: Request) {
   switch(request.method){
     case 'GET':
       try {

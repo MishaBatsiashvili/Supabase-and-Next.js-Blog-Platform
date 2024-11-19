@@ -12,7 +12,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "algolia:build": "dotenv -e .env.local -- sh -c 'tsx src/lib/build-algolia-search.ts'"
+    "algolia:build": "dotenv -e .env.local -- sh -c 'tsx src/lib/build-algolia-search.ts'",
+    "type-check": "tsc"
   },
   "dependencies": {
     "@algolia/client-search": "^5.13.0",

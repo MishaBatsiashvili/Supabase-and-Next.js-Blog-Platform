@@ -13,6 +13,6 @@ generates:
       - "typescript-resolvers"
     config:
       useIndexSignature: true
-      contextType: "../index#MyContext"
+      contextType: "any"
 ignoreNoDocuments: true
 

@@ -1,22 +1,26 @@
-import { Highlight } from 'react-instantsearch'
-import { getPropertyByPath } from 'instantsearch.js/es/lib/utils'
-import Link from 'next/link'
-import { BaseHit } from 'instantsearch.js'
-import { Hit as HitType } from 'algoliasearch'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 import Image from 'next/image'
+import { Hit as AlgoliaHit } from 'algoliasearch'
+import { BaseHit } from 'instantsearch.js'
+import { Highlight } from 'react-instantsearch'
 
-// @ts-ignore
+interface ExtendedBaseHit extends BaseHit {
+  image_url: string
+  title: string
+  content: string
+  author: string
+  __position: number // Including __position to satisfy the expected type
+}
+
 export const Hit: React.FC<{
-  hit: HitType<BaseHit>
+  hit: AlgoliaHit<BaseHit>
   setSearchIsActive: React.Dispatch<React.SetStateAction<boolean>>
 }> = ({ hit, setSearchIsActive }) => {
   return (
     <Link
-      href={`/post/${hit.id}`}
-      onClick={() => {
-        setSearchIsActive(false)
-      }}
+      href={`/post/${hit.objectID}`} // Ensure you are using objectID since hit.id might not be correct
+      onClick={() => setSearchIsActive(false)}
       className="block w-full"
     >
       <motion.div
@@ -26,7 +30,7 @@ export const Hit: React.FC<{
         whileHover={{ x: 10, opacity: 0.8 }}
       >
         <div className="relative w-full">
-          <div className="w-full pt-[90%] relative">
+          <div className="relative w-full pt-[90%]">
             <Image
               src={hit.image_url}
               alt="search image"
@@ -39,12 +43,15 @@ export const Hit: React.FC<{
 
         <div className="col-span-5">
           <div className="text-md font-bold">
+            {/* @ts-ignore */}
             <Highlight attribute="title" hit={hit} />
           </div>
           <div className="text-sm truncate-multi-line-1">
+            {/* @ts-ignore */}
             <Highlight attribute="content" hit={hit} />
           </div>
           <div className="text-xs text-gray-500">
+            {/* @ts-ignore */}
             Author: <Highlight attribute="author" hit={hit} />
           </div>
         </div>

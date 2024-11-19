@@ -1,18 +1,16 @@
 import React from 'react'
 import { GetPostsQuery } from '@/__generated__/graphql'
 import Image from 'next/image'
-import { textTruncate } from '@/utils/helpers/textTruncate'
 import { getS3ImageUrl } from '@/utils/helpers/getS3ImageUrl'
 import moment from 'moment'
 import { Skeleton } from '@nextui-org/react'
 
 type PostProps = {
-  post: NonNullable<GetPostsQuery['posts']>[0]
+  post: NonNullable<GetPostsQuery['posts']>['items'][0]
   titleCharSize?: number
   contentCharSize?: number
 }
 
-// Example component for HalfPost
 const HalfPost: React.FC<PostProps> = ({ post }) => (
   <div className="relative rounded-lg">
     <div className="flex h-full w-full flex-col">
@@ -37,8 +35,6 @@ const HalfPost: React.FC<PostProps> = ({ post }) => (
     </div>
   </div>
 )
-
-// Create similar components for FourthPost and FullShortPost
 
 const HalfShortPost: React.FC<PostProps> = ({ post }) => (
   <div className="relative rounded-lg">

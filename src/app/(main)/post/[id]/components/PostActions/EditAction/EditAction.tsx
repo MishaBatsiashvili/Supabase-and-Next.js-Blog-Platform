@@ -33,7 +33,7 @@ const EditAction: React.FC<{
     },
   })
 
-  const { handleS3FileUpload, fileIsUploading } = useS3Upload()
+  const { handleS3FileUpload, loading: fileIsUploading } = useS3Upload()
 
   const [updatePost, { loading }] = useMutation(UPDATE_POST, {
     onError: () => toast.error('Error updating post'),
