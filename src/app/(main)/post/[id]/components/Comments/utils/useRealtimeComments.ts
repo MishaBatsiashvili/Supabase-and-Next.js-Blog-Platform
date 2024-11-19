@@ -2,6 +2,7 @@ import { Database } from "@/database.schema"
 import { GET_COMMENTS } from "@/graphql/client/queries/GET_COMMENTS"
 import { createClient } from "@/utils/supabase/client"
 import { useApolloClient, useQuery } from "@apollo/client"
+import { Modifier, Reference } from "@apollo/client/cache"
 import { useCallback, useEffect } from "react"
 
 type CommentType = Database['public']['Tables']['comments']['Row']
@@ -29,7 +30,6 @@ export const useRealtimeComments = (postId: string) => {
         },
         (payload) => {
           const { eventType, new: newComment, old: oldComment } = payload
-          console.log(payload)
           
           switch (eventType) {
             case 'INSERT':
@@ -49,8 +49,12 @@ export const useRealtimeComments = (postId: string) => {
             case 'UPDATE':
               client.cache.modify({
                 fields: {
-                  comments(existingCommentRefs = [], { toReference }) {
-                    return existingCommentRefs.map(ref => {
+                  comments(existingCommentRefs = [], { toReference }): Reference[] {
+                    if (!Array.isArray(existingCommentRefs)) {
+                      return existingCommentRefs;
+                    }
+
+                    return existingCommentRefs.map((ref) => {
                       if(ref.__ref === `Comment:${newComment.id}`){
                         return toReference({
                           __typename: 'Comment',
@@ -67,6 +71,11 @@ export const useRealtimeComments = (postId: string) => {
               client.cache.modify({
                 fields: {
                   comments(existingCommentRefs = []) {
+                    
+                    if (!Array.isArray(existingCommentRefs)) {
+                      return existingCommentRefs;
+                    }
+
                     return existingCommentRefs.filter(ref => {
                       return ref.__ref !== `Comment:${oldComment.id}`
                     })
@@ -80,6 +89,7 @@ export const useRealtimeComments = (postId: string) => {
         }
       )
       .subscribe()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
     useEffect(() => {
@@ -87,7 +97,7 @@ export const useRealtimeComments = (postId: string) => {
         return () => {
             supabase.removeChannel(channel)
         }
-    }, [commentsData, client.cache, subscribeToRealtimeComments])
+    }, [commentsData, client.cache, subscribeToRealtimeComments, supabase])
 
     return {
         commentsLoading,

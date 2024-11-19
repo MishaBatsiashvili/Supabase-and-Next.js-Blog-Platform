@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { BaseHit } from 'instantsearch.js'
 import { Hit as HitType } from 'algoliasearch'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 
 // @ts-ignore
 export const Hit: React.FC<{
@@ -25,11 +26,13 @@ export const Hit: React.FC<{
         whileHover={{ x: 10, opacity: 0.8 }}
       >
         <div className="relative w-full">
-          <div className="w-full pt-[90%]">
-            <img
+          <div className="w-full pt-[90%] relative">
+            <Image
               src={hit.image_url}
-              className="absolute left-0 top-0 block h-full w-full object-cover rounded-md"
               alt="search image"
+              layout="fill"
+              objectFit="cover"
+              className="absolute left-0 top-0 block rounded-md"
             />
           </div>
         </div>

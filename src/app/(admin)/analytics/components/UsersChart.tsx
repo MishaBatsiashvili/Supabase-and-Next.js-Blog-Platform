@@ -30,7 +30,7 @@ const UsersChart: React.FC<{
       })
       acc[eventDate] = (acc[eventDate] || 0) + 1
       return acc
-    }, {})
+    }, {} as Record<string, number>)
 
     if (!chartRef.current) return
 
@@ -64,7 +64,7 @@ const UsersChart: React.FC<{
     return () => {
       newChartInstance.destroy()
     }
-  }, [])
+  }, [Items])
 
   return (
     <div>

@@ -43,7 +43,7 @@ const EditActionsView: React.FC<{
     } else {
       reset()
     }
-  }, [isEditMode])
+  }, [data.comment, isEditMode, reset, setValue])
 
   const submit = async ({ comment }: InputsType) => {
     try {

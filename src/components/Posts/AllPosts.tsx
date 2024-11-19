@@ -63,6 +63,7 @@ const AllPosts: React.FC<{}> = () => {
     if (newPage && newPage !== page.toString()) {
       setPage(getPageNumber(newPage))
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams])
 
   const renderPosts = () => {
